@@ -14,11 +14,11 @@ export const Landing = () => {
                 BOOKEROO
               </h1>
               <div>
-                <Link className="btn btn-lg btn-primary mr-2" to="/register">
+                <Link className="btn btn-lg btn-light mr-2" style = {({margin:"20px 20px"})} to="/register">
                   Sign Up
                 </Link>
                 
-                <Link className="btn btn-lg btn-secondary mr-2" to="/login">
+                <Link className="btn btn-lg btn-light mr-2" style = {({margin:"20px 20px"})} to="/login">
                   Login
                 </Link>
               </div>

@@ -1,0 +1,17 @@
+.catalogue{
+    display: flex;
+    flex-direction: row;
+}
+
+.book{
+    background-image: url(./images/empty.jpg);
+    display: flex;
+    flex-direction: row;
+    width: 200px;
+    height: 322px;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-size: 100% 100%;
+    margin: 20px 20px 20px 20px;
+}

@@ -11,6 +11,7 @@ import store from "./store";
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import Catalogue from "./components/Catalogue";
 
 class App extends Component {
   render() {
@@ -31,6 +32,7 @@ class App extends Component {
               //Private Routes
             }
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/catalogue" component={Catalogue} />
             <Route exact path="/addPerson" component={AddPerson} />
           
           </div>

@@ -1,5 +1,5 @@
 .landing{
-    background-image: url(./images/landBacking.jpg);
+    background-image: url(../images/landBacking.jpg);
     background-size:cover;
     min-height: 90.25vh;
     display: flex;
