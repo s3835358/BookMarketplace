@@ -1,0 +1,29 @@
+.landing{
+    background-image: url(./images/landBacking.jpg);
+    background-size:cover;
+    min-height: 90.25vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    position: relative;
+    background-position: center;
+
+    margin-top: -30px;
+    margin-bottom: -50px;
+}
+
+/*col-md-12 text-center
+*/
+.landing-title{
+    border: 1cm;
+    background-color: black;
+    color: aliceblue;
+    font-size:30pt;
+    opacity: 85%;
+    padding: 25px 50px 25px 50px;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
