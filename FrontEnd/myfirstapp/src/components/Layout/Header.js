@@ -4,10 +4,10 @@ import React, { Component } from 'react'
     render() {
         return (
             <div>
-            <nav className="navbar navbar-expand-sm navbar-dark bg-primary mb-4">
+            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
             <div className="container">
                 <a className="navbar-brand" href="/">
-                    Person Management Tool
+                    BOOKEROO
                 </a>
                 <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
                     <span className="navbar-toggler-icon" />

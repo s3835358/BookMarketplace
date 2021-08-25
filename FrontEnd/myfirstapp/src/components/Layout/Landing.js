@@ -13,14 +13,16 @@ export const Landing = () => {
               <h1 className="display-3 mb-4">
                 BOOKEROO
               </h1>
+              <div>
+                <Link className="btn btn-lg btn-primary mr-2" to="/register">
+                  Sign Up
+                </Link>
+                
+                <Link className="btn btn-lg btn-secondary mr-2" to="/login">
+                  Login
+                </Link>
+              </div>
               
-              <Link className="btn btn-lg btn-primary mr-2" to="/register">
-                Sign Up
-              </Link>
-              &nbsp;
-              <Link className="btn btn-lg btn-secondary mr-2" to="/login">
-                Login
-              </Link>
             </div>
           </div>
         </div>

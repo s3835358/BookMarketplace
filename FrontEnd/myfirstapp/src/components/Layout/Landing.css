@@ -21,8 +21,8 @@
     background-color: black;
     color: aliceblue;
     font-size:30pt;
-    opacity: 85%;
-    padding: 25px 50px 25px 50px;
+    opacity: 100%;
+    padding: 0px 50px 25px 50px;
     align-items: center;
     display: flex;
     flex-direction: column;
