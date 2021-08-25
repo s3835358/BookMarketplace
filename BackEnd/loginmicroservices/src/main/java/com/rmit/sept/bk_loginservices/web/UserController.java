@@ -82,6 +82,7 @@ public class UserController {
         return ResponseEntity.ok(new JWTLoginSucessReponse(true, jwt));
     }
 
+
     @CrossOrigin(origins = "http://localhost:3000")
     @GetMapping("/test")
     public User test(){
