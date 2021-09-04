@@ -23,11 +23,14 @@ const jwtToken = localStorage.jwtToken;
 
 if (jwtToken) {
   setJWTToken(jwtToken);
+
   const decoded_jwtToken = jwt_decode(jwtToken);
+  
   store.dispatch({
     type: SET_CURRENT_USER,
     payload: decoded_jwtToken
   });
+}
 
 class App extends Component {
   render() {
@@ -57,4 +60,5 @@ class App extends Component {
     );
   }
 }
+
 export default App;

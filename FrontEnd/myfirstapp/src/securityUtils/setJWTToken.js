@@ -9,4 +9,3 @@ const setJWTToken = token => {
 };
 
 export default setJWTToken;
-© 2021 GitHub, In
