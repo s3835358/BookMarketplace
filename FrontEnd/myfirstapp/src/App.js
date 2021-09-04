@@ -13,6 +13,22 @@ import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
 import Catalogue from "./components/Catalogue";
 
+import jwt_decode from "jwt-decode";
+import setJWTToken from "./securityUtils/setJWTToken";
+import { SET_CURRENT_USER } from "./actions/types";
+import { logout } from "./actions/securityActions";
+import SecuredRoute from "./securityUtils/SecureRoute";
+
+const jwtToken = localStorage.jwtToken;
+
+if (jwtToken) {
+  setJWTToken(jwtToken);
+  const decoded_jwtToken = jwt_decode(jwtToken);
+  store.dispatch({
+    type: SET_CURRENT_USER,
+    payload: decoded_jwtToken
+  });
+
 class App extends Component {
   render() {
     return (
