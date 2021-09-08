@@ -6,9 +6,17 @@ import jwt_decode from "jwt-decode";
 
 export const createNewUser = (newUser, history) => async dispatch => {
 
-    try{
+    console.log("Attempted1");
 
-        await axios.post("http://localhost:8080/api/users/register", newUser);
+    try{
+        console.log(newUser.username);
+        console.log(newUser.password);
+        console.log(newUser.fullName);
+        await axios.post("https://sept-login-service.herokuapp.com/api/users/register", newUser).then((response) => {         
+            
+            console.log(response.data);
+        });
+        
         history.push("/login");
         dispatch({
             type: GET_ERRORS,
@@ -16,6 +24,7 @@ export const createNewUser = (newUser, history) => async dispatch => {
         });
     }
     catch (err){
+        console.log(err);
         dispatch ({
             type: GET_ERRORS,
             payload: err.response.data
@@ -30,8 +39,11 @@ export const createNewUser = (newUser, history) => async dispatch => {
 export const login = LoginRequest => async dispatch => {
     try {
       // post => Login Request
-      const res = await axios.post("http://localhost:8080/api/users/login", LoginRequest);
+      const res = await axios.post("https://sept-login-service.herokuapp.com/api/users/login", LoginRequest);
       // extract token from res.data
+      console.log(res);
+      console.log(res.data);
+
       const { token } = res.data;
       // store the token in the localStorage
       localStorage.setItem("jwtToken", token);

@@ -2,6 +2,8 @@ package com.bookeroo.app.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,8 +35,17 @@ public class BooksController {
 	 *	A test method, not currently useful.
 	 */
 	@GetMapping()
-	public Book book(@RequestParam(value = "name", defaultValue = "person") String name) {
-		return new Book(1, String.format("Hello %s", name));
+	public Book book(@RequestParam(value = "title", defaultValue = "person") String title) {
+		return new Book(1, String.format("Hello %s", title));
+	}
+
+	/*
+	 *	Based on https://www.baeldung.com/spring-resttemplate-post-json
+	 * 
+	 */
+	@PostMapping(value = "/addBook", consumes ="application/json", produces = "application/json")
+	public Book addBook(@RequestBody Book book) {
+		return booksDao.saveBook(book);
 	}
 
 	/*
@@ -46,5 +57,7 @@ public class BooksController {
 		//response.addHeader("Access-Control-Allow-Origin","*");
 		return booksDao.getBookTitles();
 	}
+
+	//website.com/books/getTitles
 	
 }
