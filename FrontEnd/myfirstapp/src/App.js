@@ -1,4 +1,6 @@
-import React, { Component } from "react";
+  
+  
+import React, { useState } from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
@@ -17,24 +19,36 @@ import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logout } from "./actions/securityActions";
+import {createContext} from 'react';
 import SecuredRoute from "./securityUtils/SecureRoute";
 
 const jwtToken = localStorage.jwtToken;
 
 if (jwtToken) {
   setJWTToken(jwtToken);
-
   const decoded_jwtToken = jwt_decode(jwtToken);
-  
   store.dispatch({
     type: SET_CURRENT_USER,
     payload: decoded_jwtToken
   });
+
+  const currentTime = Date.now() / 1000;
+  if (decoded_jwtToken.exp < currentTime) {
+    store.dispatch(logout());
+    window.location.href = "/";
+  }
 }
 
-class App extends Component {
-  render() {
-    return (
+
+export const UserContext = createContext("");
+
+export const App = () => {
+
+  const [user,setUser] = useState("Guest");
+  const [token,setToken] = useState("");
+
+  return (
+    <UserContext.Provider value = {{user, token, setUser, setToken}}>
       <Provider store={store}>
         <Router>
           <div className="App">
@@ -42,7 +56,7 @@ class App extends Component {
             {
               //Public Routes
             }
-           
+          
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
@@ -57,8 +71,9 @@ class App extends Component {
           </div>
         </Router>
       </Provider>
-    );
-  }
+    </UserContext.Provider>
+  );
+  
 }
 
 export default App;

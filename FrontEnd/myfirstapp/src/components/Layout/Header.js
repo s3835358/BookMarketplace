@@ -1,53 +1,53 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-class Header extends Component {
-    render() {
-        return (
-            <div>
-            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
-            <div className="container">
-                <a className="navbar-brand" href="/">
-                    BOOKEROO
-                </a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
-                    <span className="navbar-toggler-icon" />
-                </button>
+export const Header = () => {
     
-                <div className="collapse navbar-collapse" id="mobile-nav">
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/dashboard">
-                                Dashboard
-                            </a>
-                        </li>
-                    </ul>
+    return (
+        <div>
+            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
+                <div className="container">
+                    <a className="navbar-brand" href="/">
+                        BOOKEROO
+                    </a>
+                    <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+                        <span className="navbar-toggler-icon" />
+                    </button>
 
-                    <ul className="navbar-nav mr-auto">
-                        <li className="nav-item">
-                            <a className="nav-link" href="/catalogue">
-                                Catalogue
-                            </a>
-                        </li>
-                    </ul>
+                    <div className="collapse navbar-collapse" id="mobile-nav">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/dashboard">
+                                    Dashboard
+                                </a>
+                            </li>
+                        </ul>
 
-                    <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                            <a className="nav-link " href="register">
-                                Sign Up
-                            </a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link" href="login">
-                                Login
-                            </a>
-                        </li>
-                        
-                    </ul>
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/catalogue">
+                                    Catalogue
+                                </a>
+                            </li>
+                        </ul>
+
+                        <ul className="navbar-nav ml-auto">
+                            <li className="nav-item">
+                                <a className="nav-link " href="register">
+                                    Sign Up
+                                </a>
+                            </li>
+                            <li className="nav-item">
+                                <a className="nav-link" href="login">
+                                    Login
+                                </a>
+                            </li>
+                            
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-            </div>
-        )
-    }
+            </nav>
+        </div>
+    )
+    
 }
 export default Header;
