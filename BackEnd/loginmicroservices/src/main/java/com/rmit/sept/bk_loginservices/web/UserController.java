@@ -42,17 +42,26 @@ public class UserController {
     private UserValidator userValidator;
 
 
+    @CrossOrigin(origins = "http://localhost:3000")
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
         // Validate passwords match
         userValidator.validate(user,result);
+        System.out.println("received ....");
+        System.out.println(user);
+        System.out.printf("Name: %s, \nemail: %s, \npassword: %s, \ncPassword: %s\n",user.getFullName(), user.getUsername(), user.getPassword(), user.getConfirmPassword());
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
+        System.out.println("ManualErrReport " + errorMap);
+
         if(errorMap != null)return errorMap;
+        
+        User newUser = userService.saveUser(user);
 
-        //User newUser = userService.saveUser(user);
+        ResponseEntity<User> res =  new ResponseEntity<User>(newUser, HttpStatus.CREATED);
+        System.out.println("By me: " + res);
 
-        return  new ResponseEntity<User>(user, HttpStatus.CREATED);
+        return new ResponseEntity<User>(newUser, HttpStatus.CREATED);
     }
 
 
