@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 
- class Header extends Component {
+class Header extends Component {
     render() {
         return (
             <div>
@@ -41,6 +41,7 @@ import React, { Component } from 'react'
                                 Login
                             </a>
                         </li>
+                        
                     </ul>
                 </div>
             </div>
