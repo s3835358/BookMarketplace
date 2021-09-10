@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { createNewUser } from "../../actions/securityActions";
 import * as PropTypes from 'prop-types'
 import { connect } from "react-redux";
-import classnames from "classnames";
 
 class Register extends Component {
   constructor() {

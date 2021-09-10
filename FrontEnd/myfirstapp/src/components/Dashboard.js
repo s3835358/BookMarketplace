@@ -1,6 +1,4 @@
 import React from 'react'
-import Person from './Persons/Person'
-import CreatePersonButton from './Persons/CreatePersonButton';
 
 
 function Dashboard() {
@@ -13,10 +11,6 @@ function Dashboard() {
                         <h1 className="display-4 text-center">Persons</h1>
                         <br />
                         
-                        <CreatePersonButton />
-                        <br />
-                        <hr />
-                        <Person/>
                     </div>
                 </div>
             </div>

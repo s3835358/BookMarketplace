@@ -1,16 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import './Landing.css';
 import { Link } from "react-router-dom";
 import {useUserContext} from '../UserManagement/UserContext';
 
 export const Landing = () => {
 
-  const {userType, setUserType} = useUserContext();
-  const {user, setUser} = useUserContext();
+  const {user} = useUserContext();
   const [logged, setLogged] = useState(false);
 
   useEffect (() => {
-      if(user == "") {
+      if(user === "") {
           setLogged(false);
       } else {
           setLogged(true);

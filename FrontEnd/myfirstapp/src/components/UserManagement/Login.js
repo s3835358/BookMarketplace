@@ -1,5 +1,5 @@
   
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
 import { useUserContext } from "./UserContext";
@@ -9,7 +9,7 @@ export const Login = props => {
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
 
-  const{user,setUser} = useUserContext();
+  const{setUser} = useUserContext();
   const{token,setToken} = useUserContext();
 
   function handleSubmit(event) {

@@ -1,15 +1,14 @@
-import React, {useContext, useEffect, useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import {useUserContext} from '../UserManagement/UserContext';
-import store from "../../store";
 
 export const Header = () => {
     
-    const {userType, setUserType} = useUserContext();
-    const {user, setUser} = useUserContext();
+    
+    const {user} = useUserContext();
     const [logged, setLogged] = useState(false);
 
     useEffect (() => {
-        if(user == "" && localStorage.getItem("user") == null) {
+        if((user === "") && (localStorage.getItem("user") === null)) {
             setLogged(false);
         } else {
             setLogged(true);

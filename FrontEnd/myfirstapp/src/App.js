@@ -1,12 +1,11 @@
   
   
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
-import AddPerson from "./components/Persons/AddPerson";
 import { Provider } from "react-redux";
 import store from "./store";
 
@@ -20,7 +19,6 @@ import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logout } from "./actions/securityActions";
-import SecuredRoute from "./securityUtils/SecureRoute";
 import {UserContextProvider} from './components/UserManagement/UserContext';
 
 
@@ -75,7 +73,6 @@ export const App = () => {
               }
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/catalogue" component={Catalogue} />
-              <Route exact path="/addPerson" component={AddPerson} />
             </Switch>
           </div>
         </Router>
