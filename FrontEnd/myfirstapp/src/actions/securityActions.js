@@ -6,7 +6,6 @@ import jwt_decode from "jwt-decode";
 
 export const createNewUser = (newUser, history) => async dispatch => {
 
-    console.log("Attempted1");
 
     try{
         console.log(newUser.username);
@@ -30,45 +29,49 @@ export const createNewUser = (newUser, history) => async dispatch => {
             payload: err.response.data
         });
 
-
-
     }
 
 };
 
 export const login = LoginRequest => async dispatch => {
-    try {
-      // post => Login Request
-      const res = await axios.post("https://sept-login-service.herokuapp.com/api/users/login", LoginRequest);
-      // extract token from res.data
-      console.log(res);
-      console.log(res.data);
+    
+  try {
+    // post => Login Request
+    const res = await axios.post("https://sept-login-service.herokuapp.com/api/users/login", LoginRequest);
+    // extract token from res.data
+    console.log(res);
+    console.log(res.data);
+    
+    const { token } = res.data;
+    // store the token in the localStorage
+    localStorage.setItem("jwtToken", token);
+    // set our token in header ***
+    setJWTToken(token);
+    // decode token on React
+    const decoded = jwt_decode(token);
+    // dispatch to our securityReducer
+    dispatch({
+      type: SET_CURRENT_USER,
+      payload: decoded
+    });
 
-      const { token } = res.data;
-      // store the token in the localStorage
-      localStorage.setItem("jwtToken", token);
-      // set our token in header ***
-      setJWTToken(token);
-      // decode token on React
-      const decoded = jwt_decode(token);
-      // dispatch to our securityReducer
-      dispatch({
-        type: SET_CURRENT_USER,
-        payload: decoded
-      });
-    } catch (err) {
-      dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-      });
-    }
-  };
+  } catch (err) {
+    dispatch({
+      type: GET_ERRORS,
+      payload: err.response.data
+    });
+  }
+
+};
   
-  export const logout = () => dispatch => {
+  export const logout = () => async dispatch => {
+
     localStorage.removeItem("jwtToken");
     setJWTToken(false);
+    
     dispatch({
       type: SET_CURRENT_USER,
       payload: {}
     });
-  };
+    
+};

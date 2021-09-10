@@ -1,7 +1,21 @@
-import React from 'react'
+import React, {useContext, useEffect, useState} from 'react'
+import {UserContext} from '../UserManagement/UserContext';
+import store from "../../store";
 
 export const Header = () => {
     
+    const {userType, setUserType} = useContext(UserContext);
+    const {user, setUser} = useContext(UserContext);
+    const [logged, setLogged] = useState(false);
+
+    useEffect (() => {
+        if(user == "") {
+            setLogged(false);
+        } else {
+            setLogged(true);
+        }
+    }, [user]);
+
     return (
         <div>
             <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
@@ -30,19 +44,39 @@ export const Header = () => {
                             </li>
                         </ul>
 
-                        <ul className="navbar-nav ml-auto">
-                            <li className="nav-item">
-                                <a className="nav-link " href="register">
-                                    Sign Up
-                                </a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="login">
-                                    Login
-                                </a>
-                            </li>
+                        <ul className="navbar-nav ml-auto" >
+                            {logged?
+                                <div style = {{display:"flex", flexDirection:"row"}}>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/logout">
+                                            Log Out
+                                        </a>
+                                    </li>
+                                    <li className="nav-item" style={{color:"white"}}>
+                                        
+                                        {user}
+                                        
+                                    </li>
+                                </div>
+                            :
+                                
+                                <div style = {{display:"flex", flexDirection:"row", color:"white"}}>
+                                    <li className="nav-item">
+                                        <a className="nav-link " href="register">
+                                            Sign Up
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="login">
+                                            Login
+                                        </a>
+                                    </li>   
+                                </div>
+                            }
                             
                         </ul>
+                    
+
                     </div>
                 </div>
             </nav>

@@ -1,113 +1,85 @@
   
-import React, { Component } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
+import axios from "axios";
 import classnames from "classnames";
-import { login } from "../../actions/securityActions";
+import { UserContext } from "./UserContext";
 
-class Login extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: "",
-      password: "",
-      errors: {}
-    };
-    this.onChange = this.onChange.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-  }
+export const Login = () => {
+  
+  const [username,setUsername] = useState("");
+  const [password,setPassword] = useState("");
 
-  componentDidMount() {
-    if (this.props.security.validToken) {
-      this.props.history.push("/dashboard");
-    }
-  }
+  const{user,setUser} = useContext(UserContext);
+  const{token,setToken} = useContext(UserContext);
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.security.validToken) {
-      this.props.history.push("/dashboard");
+  function handleSubmit() {
+    var req = {
+        "username": username,
+        "password": password, 
     }
 
-    if (nextProps.errors) {
-      this.setState({ errors: nextProps.errors });
-    }
+    // Post request to api, passing our username and password as data
+    axios.post(`https://sept-login-service.herokuapp.com/api/users/login`,req).then(res => {
+        console.log(res.data);
+
+        if(res.data.success) {
+            setToken(String(res.data.token))
+            setUser(username)
+        } else{
+            // Tell user what went wrong with submission
+            alert(res.data.message);
+        }
+
+    }).catch(err =>{
+        // Tell user what went wrong with submission
+        alert(err);
+    })
   }
 
-  onSubmit(e) {
-    e.preventDefault();
-    const LoginRequest = {
-      username: this.state.username,
-      password: this.state.password
-    };
-
-    this.props.login(LoginRequest);
+  function usernameChange(e) {
+    setUsername(e.target.value);
   }
 
-  onChange(e) {
-    this.setState({ [e.target.name]: e.target.value });
+  function pwordChange(e) {
+    setPassword(e.target.value);
   }
 
-  render() {
-    const { errors } = this.state;
-    return (
-      <div className="login">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Log In</h1>
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.username
-                    })}
-                    placeholder="Email Address"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChange}
-                  />
-                  {errors.username && (
-                    <div className="invalid-feedback">{errors.username}</div>
-                  )}
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className={classnames("form-control form-control-lg", {
-                      "is-invalid": errors.password
-                    })}
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                  {errors.password && (
-                    <div className="invalid-feedback">{errors.password}</div>
-                  )}
-                </div>
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+  return (
+    <div className="login">
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8 m-auto">
+            <h1 className="display-4 text-center">Log In</h1>
+            
+            <div className="form-group">
+              <input
+                type="text"
+                className={classnames("form-control form-control-lg")}
+                placeholder="Email Address"
+                name="username"
+                value={username}
+                onChange={usernameChange}
+              />
             </div>
+            <div className="form-group">
+              <input
+                type="password"
+                className={classnames("form-control form-control-lg")}
+                placeholder="Password"
+                name="password"
+                value={password}
+                onChange={pwordChange}
+              />
+            </div>
+            <input type="submit" onClick={handleSubmit} className="btn btn-info btn-block mt-4" />
+            
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+  
 }
-
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
-  errors: PropTypes.object.isRequired,
-  security: PropTypes.object.isRequired
-};
-
-const mapStateToProps = state => ({
-  security: state.security,
-  errors: state.errors
-});
-
-export default connect(
-  mapStateToProps,
-  { login }
-)(Login);
+export default Login;

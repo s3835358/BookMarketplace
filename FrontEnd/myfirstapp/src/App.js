@@ -1,6 +1,6 @@
   
   
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
@@ -13,20 +13,24 @@ import store from "./store";
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
 import Login from "./components/UserManagement/Login";
+import Logout from "./components/UserManagement/Logout";
 import Catalogue from "./components/Catalogue";
 
 import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logout } from "./actions/securityActions";
-import {createContext} from 'react';
 import SecuredRoute from "./securityUtils/SecureRoute";
+import {UserContext} from './components/UserManagement/UserContext';
+
 
 const jwtToken = localStorage.jwtToken;
 
 if (jwtToken) {
+
   setJWTToken(jwtToken);
   const decoded_jwtToken = jwt_decode(jwtToken);
+
   store.dispatch({
     type: SET_CURRENT_USER,
     payload: decoded_jwtToken
@@ -34,21 +38,20 @@ if (jwtToken) {
 
   const currentTime = Date.now() / 1000;
   if (decoded_jwtToken.exp < currentTime) {
+    
     store.dispatch(logout());
     window.location.href = "/";
-  }
+  } 
 }
-
-
-export const UserContext = createContext("");
 
 export const App = () => {
 
-  const [user,setUser] = useState("Guest");
-  const [token,setToken] = useState("");
+  const [userType, setUserType] = useState("");
+  const [user, setUser] = useState("");
+  const [token, setToken] = useState("");
 
   return (
-    <UserContext.Provider value = {{user, token, setUser, setToken}}>
+    <UserContext.Provider value = {{userType,user,token,setUser,setToken,setUserType}}>
       <Provider store={store}>
         <Router>
           <div className="App">
@@ -60,6 +63,7 @@ export const App = () => {
             <Route exact path="/" component={Landing} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/logout" component={Logout} />
 
             {
               //Private Routes
