@@ -4,7 +4,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.sql.ResultSet;
 import java.util.List;
 
 import com.bookeroo.app.models.Book;
@@ -33,6 +32,12 @@ public class BooksDao {
     public List<String> getBookTitles() {
         String query = "select title from books;";
         return jdbcTemplate.queryForList(query, String.class);
+    }
+
+    public List<Book> getBooks() {
+        String query = "select * from books;";
+        
+        return jdbcTemplate.query(query, new BookMapper());
     }
 
     public Book saveBook(Book book) {

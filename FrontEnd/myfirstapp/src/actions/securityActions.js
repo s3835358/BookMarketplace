@@ -67,6 +67,7 @@ export const login = LoginRequest => async dispatch => {
   export const logout = () => async dispatch => {
 
     localStorage.removeItem("jwtToken");
+    localStorage.removeItem("user");
     setJWTToken(false);
     
     dispatch({

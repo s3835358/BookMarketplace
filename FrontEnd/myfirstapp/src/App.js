@@ -5,7 +5,7 @@ import "./App.css";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import AddPerson from "./components/Persons/AddPerson";
 import { Provider } from "react-redux";
 import store from "./store";
@@ -21,7 +21,7 @@ import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logout } from "./actions/securityActions";
 import SecuredRoute from "./securityUtils/SecureRoute";
-import {UserContext} from './components/UserManagement/UserContext';
+import {UserContextProvider} from './components/UserManagement/UserContext';
 
 
 const jwtToken = localStorage.jwtToken;
@@ -44,38 +44,43 @@ if (jwtToken) {
   } 
 }
 
+
+
 export const App = () => {
 
-  const [userType, setUserType] = useState("");
-  const [user, setUser] = useState("");
-  const [token, setToken] = useState("");
+  
+  
 
   return (
-    <UserContext.Provider value = {{userType,user,token,setUser,setToken,setUserType}}>
+    <UserContextProvider>
       <Provider store={store}>
         <Router>
           <div className="App">
             <Header />
-            {
-              //Public Routes
-            }
-          
-            <Route exact path="/" component={Landing} />
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/logout" component={Logout} />
+            <Switch>
+              {
+                //Public Routes
+              }
+            
+              <Route exact path="/">
+                <Redirect to="/landing"/> 
+              </Route>
+              <Route path="/landing" exact component={Landing} />
+              <Route path="/register" exact component={Register} />
+              <Route path="/login" exact component={Login} />
+              <Route path="/logout" exact component={Logout} />
 
-            {
-              //Private Routes
-            }
-            <Route exact path="/dashboard" component={Dashboard} />
-            <Route exact path="/catalogue" component={Catalogue} />
-            <Route exact path="/addPerson" component={AddPerson} />
-          
+              {
+                //Private Routes
+              }
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/catalogue" component={Catalogue} />
+              <Route exact path="/addPerson" component={AddPerson} />
+            </Switch>
           </div>
         </Router>
       </Provider>
-    </UserContext.Provider>
+    </UserContextProvider>
   );
   
 }

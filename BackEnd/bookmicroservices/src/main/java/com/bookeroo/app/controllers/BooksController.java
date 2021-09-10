@@ -58,6 +58,13 @@ public class BooksController {
 		return booksDao.getBookTitles();
 	}
 
+	@GetMapping("/getBooks")
+	public List<Book> getBooks() {
+		//response.addHeader("Access-Control-Allow-Origin","*");
+		return booksDao.getBooks();
+	}
+
+
 	//website.com/books/getTitles
 	
 }

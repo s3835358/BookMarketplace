@@ -1,25 +1,26 @@
   
 import React, { useState, useContext, useEffect } from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
 import axios from "axios";
 import classnames from "classnames";
-import { UserContext } from "./UserContext";
+import { useUserContext } from "./UserContext";
 
-export const Login = () => {
+export const Login = props => {
   
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
 
-  const{user,setUser} = useContext(UserContext);
-  const{token,setToken} = useContext(UserContext);
+  const{user,setUser} = useUserContext();
+  const{token,setToken} = useUserContext();
 
-  function handleSubmit() {
+  function handleSubmit(event) {
+
     var req = {
         "username": username,
         "password": password, 
     }
 
+    event.preventDefault();
+    
     // Post request to api, passing our username and password as data
     axios.post(`https://sept-login-service.herokuapp.com/api/users/login`,req).then(res => {
         console.log(res.data);
@@ -27,6 +28,9 @@ export const Login = () => {
         if(res.data.success) {
             setToken(String(res.data.token))
             setUser(username)
+            localStorage.setItem("jwtToken", token);
+            localStorage.setItem("user", username);
+            props.history.push("/");
         } else{
             // Tell user what went wrong with submission
             alert(res.data.message);

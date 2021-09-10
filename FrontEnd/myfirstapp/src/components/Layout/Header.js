@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useState} from 'react'
-import {UserContext} from '../UserManagement/UserContext';
+import {useUserContext} from '../UserManagement/UserContext';
 import store from "../../store";
 
 export const Header = () => {
     
-    const {userType, setUserType} = useContext(UserContext);
-    const {user, setUser} = useContext(UserContext);
+    const {userType, setUserType} = useUserContext();
+    const {user, setUser} = useUserContext();
     const [logged, setLogged] = useState(false);
 
     useEffect (() => {
-        if(user == "") {
+        if(user == "" && localStorage.getItem("user") == null) {
             setLogged(false);
         } else {
             setLogged(true);
@@ -52,11 +52,7 @@ export const Header = () => {
                                             Log Out
                                         </a>
                                     </li>
-                                    <li className="nav-item" style={{color:"white"}}>
-                                        
-                                        {user}
-                                        
-                                    </li>
+                                    
                                 </div>
                             :
                                 

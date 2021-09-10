@@ -1,11 +1,18 @@
 package com.bookeroo.app.models;
 
+import java.sql.Date;
+import java.time.Year;
+
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonPropertyOrder({
     "id",
-    "title"
+    "title",
+    "author",
+    "isbn",
+    "publisher",
+    "year"
 })
 
 public class Book {
@@ -14,6 +21,15 @@ public class Book {
     private long id;
     @JsonProperty("title")
     private String title;
+    @JsonProperty("author")
+    private String author;
+    @JsonProperty("isbn")
+    private String isbn;
+    @JsonProperty("publisher")
+    private String publisher;
+    // Format as 2015-02-15
+    @JsonProperty("year")
+    private String year;
 
     public Book() {
     }
@@ -26,6 +42,23 @@ public class Book {
     @JsonProperty("title")
     public String getTitle() {
         return title;
+    }
+
+    @JsonProperty("author")
+    public String getAuthor() {
+        return author;
+    }
+    @JsonProperty("isbn")
+    public String getIsbn() {
+        return isbn;
+    }
+    @JsonProperty("year")
+    public String getYear() {
+        return year;
+    }
+    @JsonProperty("publisher")
+    public String getpublisher() {
+        return publisher;
     }
 
     @JsonProperty("id")
@@ -41,5 +74,25 @@ public class Book {
     @JsonProperty("id")
     public void setId(long id) {
         this.id = id;
+    }
+
+    @JsonProperty("author")
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    @JsonProperty("isbn")
+    public void setIsbn(String isbn) {
+        this.isbn = isbn;
+    }
+
+    @JsonProperty("publisher")
+    public void setPublisher(String publisher) {
+        this.publisher = publisher;
+    }
+
+    @JsonProperty("year")
+    public void setYear(String year) {
+        this.year = year;
     }
 }

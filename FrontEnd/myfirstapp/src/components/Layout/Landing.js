@@ -1,8 +1,23 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import './Landing.css';
 import { Link } from "react-router-dom";
+import {useUserContext} from '../UserManagement/UserContext';
 
 export const Landing = () => {
+
+  const {userType, setUserType} = useUserContext();
+  const {user, setUser} = useUserContext();
+  const [logged, setLogged] = useState(false);
+
+  useEffect (() => {
+      if(user == "") {
+          setLogged(false);
+      } else {
+          setLogged(true);
+          console.log(user);
+          console.log("HERE");
+      }
+  }, [user]);
 
   return (
     <div className="landing">
@@ -13,15 +28,21 @@ export const Landing = () => {
               <h1 className="display-3 mb-4">
                 BOOKEROO
               </h1>
-              <div>
-                <Link className="btn btn-lg btn-light mr-2" style = {({margin:"20px 20px"})} to="/register">
-                  Sign Up
-                </Link>
+              
+              {logged?
+                <div>Welcome <p>{user}</p></div> 
+              :
                 
-                <Link className="btn btn-lg btn-light mr-2" style = {({margin:"20px 20px"})} to="/login">
-                  Login
-                </Link>
-              </div>
+                <div>
+                  <Link className="btn btn-lg btn-light mr-2" style = {({margin:"20px 20px"})} to="/register">
+                    Sign Up
+                  </Link>
+                  
+                  <Link className="btn btn-lg btn-light mr-2" style = {({margin:"20px 20px"})} to="/login">
+                    Login
+                  </Link>
+                </div>
+              }
               
             </div>
           </div>
