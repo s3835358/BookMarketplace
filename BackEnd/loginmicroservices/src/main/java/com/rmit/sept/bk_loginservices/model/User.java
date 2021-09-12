@@ -27,12 +27,22 @@ public class User implements UserDetails {
     private String password;
     @Transient
     private String confirmPassword;
+    @NotBlank(message = "Password field is required")
+    private String userType;
+    @NotBlank(message = "Password field is required")
+    private String address;
+    @NotBlank(message = "Phone field is required")
+    private String phone;
+    private String abn;
+    private String pending;
+    private String busName;
     private Date create_At;
     private Date update_At;
 
     //OneToMany with Project
 
     public User() {
+        onCreate();
     }
 
     public Long getId() {
@@ -75,28 +85,66 @@ public class User implements UserDetails {
         this.confirmPassword = confirmPassword;
     }
 
-    public Date getCreate_At() {
-        return create_At;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCreate_At(Date create_At) {
-        this.create_At = create_At;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAbn() {
+        return abn;
+    }
+
+    public void setAbn(String abn) {
+        this.abn = abn;
+    }
+
+    public String getPending() {
+        return pending;
+    }
+
+    public void setPending(String pending) {
+        this.pending = pending;
+    }
+
+    public String getUserType() {
+        return userType;
+    }
+
+    public void setUserType(String userType) {
+        this.userType = userType;
+    }
+
+    public String getBusName() {
+        return busName;
+    }
+
+    public void setBusName(String busName) {
+        this.busName = busName;
+    }
+
+    public Date getCreate_At() {
+        return create_At;
     }
 
     public Date getUpdate_At() {
         return update_At;
     }
 
-    public void setUpdate_At(Date update_At) {
-        this.update_At = update_At;
-    }
-
-    @PrePersist
     protected void onCreate(){
         this.create_At = new Date();
     }
 
-    @PreUpdate
     protected void onUpdate(){
         this.update_At = new Date();
     }

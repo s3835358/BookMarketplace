@@ -22,7 +22,7 @@ export function UserContextProvider(props) {
             setUser(us);
         }
 
-    }, []);
+    }, [user]);
   
   return (
     <UserContext.Provider value = {{userType,user,token,setUser,setToken,setUserType}}>

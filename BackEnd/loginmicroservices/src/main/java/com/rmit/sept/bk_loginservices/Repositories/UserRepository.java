@@ -15,9 +15,12 @@ public class UserRepository {
 
     public User register(User user) {
 
-        String query = "INSERT INTO `users`(`fullName`, `username`, `password`) VALUES(?, ?, ?);";
+        
+        String query = "INSERT INTO `users`(`fullName`, `username`, `password`, `userType`, `address`,";
+        query += "`phone`, `pending`, `abn`) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
 
-        jdbcTemplate.update(query, user.getFullName(), user.getUsername(), user.getPassword());
+        jdbcTemplate.update(query, user.getFullName(), user.getUsername(), user.getPassword(), user.getUserType(),
+        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn());
 
         return findByUsername(user.getUsername());
     }

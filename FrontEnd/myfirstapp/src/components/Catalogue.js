@@ -44,16 +44,6 @@ function Catalogue() {
 
         </div>
     )
-    /*{catalogue.filter((val) => {
-                if(query.length > 0 && val.toLowerCase().includes(query)) {
-                    return val;
-                } else if(query.length == 0) {
-                    return val;
-                }
-            }).map((book) => (
-                <div className = "book" key={book}>
-                    {book}
-                </div>
-            ))}*/
+    
 }
 export default Catalogue;

@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { createNewUser } from "../../actions/securityActions";
 import * as PropTypes from 'prop-types'
 import { connect } from "react-redux";
+import { Form, FloatingLabel} from "react-bootstrap";
 
 class Register extends Component {
   constructor() {
@@ -12,6 +13,12 @@ class Register extends Component {
       fullName: "",
       password: "",
       confirmPassword: "",
+      userType: "",
+      phone: "",
+      address: "",
+      abn: "",
+      pending: "",
+      busName: "",
       errors: {}
     };
     this.onChange = this.onChange.bind(this);
@@ -24,7 +31,13 @@ class Register extends Component {
       username: this.state.username,
       fullName: this.state.fullName,
       password: this.state.password,
-      confirmPassword: this.state.confirmPassword
+      confirmPassword: this.state.confirmPassword,
+      userType: this.state.userType,
+      phone: this.state.phone,
+      address: this.state.address,
+      abn: this.state.abn,
+      pending: this.state.pending,
+      busName: this.state.busName
     };
 
     this.props.createNewUser(newUser, this.props.history);
@@ -35,6 +48,8 @@ class Register extends Component {
   }
 
   render() {
+     
+
     return (
       <div className="register">
         <div className="container">
@@ -65,6 +80,69 @@ class Register extends Component {
                 </div>
                 <div className="form-group">
                   <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="Address"
+                    name="address"
+                    value={this.state.address}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div className="form-group">
+                  <input
+                    type="text"
+                    className="form-control form-control-lg"
+                    placeholder="Phone"
+                    name="phone"
+                    value={this.state.phone}
+                    onChange={this.onChange}
+                  />
+                </div>
+                <div>
+                  <FloatingLabel label="User Type">
+                    <Form.Select 
+                      size="lg"
+                      style={{height:"10%"}}
+                      name="userType"
+                      value={this.state.userType}
+                      onChange={this.onChange}>
+                      <option hidden></option>
+                      <option value="customer">Customer</option>
+                      <option value="shopOwner">Shop Owner</option>
+                      <option value="publisher">Publisher</option>
+                    </Form.Select>
+                  </FloatingLabel>
+                </div>
+                {this.state.userType.match("shopOwner") || this.state.userType.match("publisher")?
+                  <div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="Abn"
+                        name="abn"
+                        value={this.state.abn}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="Business Name"
+                        name="busName"
+                        value={this.state.busName}
+                        onChange={this.onChange}
+                      />
+                    </div>
+                  </div>
+                  
+                :
+                  <div></div>
+                }
+                
+                <div className="form-group">
+                  <input
                     type="password"
                     className="form-control form-control-lg"
                     placeholder="Password"
@@ -83,6 +161,7 @@ class Register extends Component {
                     onChange={this.onChange}
                   />
                 </div>
+                
                 <input type="submit" className="btn btn-info btn-block mt-4" />
               </form>
             </div>
