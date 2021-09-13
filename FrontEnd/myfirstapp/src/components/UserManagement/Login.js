@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import classnames from "classnames";
 import { useUserContext } from "./UserContext";
+import jwt_decode from "jwt-decode";
+import store from "../../store";
+import {SET_CURRENT_USER} from "../../actions/types";
 
 export const Login = props => {
   
@@ -26,11 +29,26 @@ export const Login = props => {
         console.log(res.data);
 
         if(res.data.success) {
-            setToken(String(res.data.token))
+            
+            console.log("hfg: ")
+            console.log(res.data.token)
+            console.log(res.data[`token`])
+            
+            const { token } = res.data;
+
+            const decoded = jwt_decode(token);
+            // dispatch to our securityReducer
+            store.dispatch({
+              type: SET_CURRENT_USER,
+              payload: decoded
+            });
+
             setUser(username)
             localStorage.setItem("jwtToken", token);
             localStorage.setItem("user", username);
+            console.log("hfg: " + token)
             props.history.push("/");
+
         } else{
             // Tell user what went wrong with submission
             alert(res.data.message);

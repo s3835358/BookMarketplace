@@ -11,6 +11,7 @@ import store from "./store";
 
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
+import Admin from "./components/UserManagement/Admin";
 import Login from "./components/UserManagement/Login";
 import Logout from "./components/UserManagement/Logout";
 import Catalogue from "./components/Catalogue";
@@ -65,6 +66,7 @@ export const App = () => {
               </Route>
               <Route path="/landing" exact component={Landing} />
               <Route path="/register" exact component={Register} />
+              <Route path="/admin" exact component={Admin} />
               <Route path="/login" exact component={Login} />
               <Route path="/logout" exact component={Logout} />
 

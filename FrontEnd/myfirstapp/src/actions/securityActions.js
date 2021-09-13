@@ -2,6 +2,7 @@ import axios from "axios";
 import {GET_ERRORS, SET_CURRENT_USER} from "./types";
 import setJWTToken from "../securityUtils/setJWTToken";
 import jwt_decode from "jwt-decode";
+import { useUserContext } from "../components/UserManagement/UserContext";
 
 
 export const createNewUser = (newUser, history) => async dispatch => {
@@ -35,13 +36,17 @@ export const createNewUser = (newUser, history) => async dispatch => {
 
 export const login = LoginRequest => async dispatch => {
     
+  console.log("HI2");
+
+  const{setUser} = useUserContext();
+
   try {
     // post => Login Request
     const res = await axios.post("https://sept-login-service.herokuapp.com/api/users/login", LoginRequest);
     // extract token from res.data
     console.log(res);
     console.log(res.data);
-    
+    setUser(LoginRequest.username);
     const { token } = res.data;
     // store the token in the localStorage
     localStorage.setItem("jwtToken", token);

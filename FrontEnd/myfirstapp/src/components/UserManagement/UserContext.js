@@ -5,15 +5,9 @@ const UserContext = React.createContext();
 export function UserContextProvider(props) {
 
     const [userType, setUserType] = useState("");
-    
-    
 
     const [user, setUser] = useState("");
     
-    
-    
-    const [token, setToken] = useState("");
-
     useEffect (() => {
         console.log("hello again: ")
         console.log(user);
@@ -25,7 +19,7 @@ export function UserContextProvider(props) {
     }, [user]);
   
   return (
-    <UserContext.Provider value = {{userType,user,token,setUser,setToken,setUserType}}>
+    <UserContext.Provider value = {{userType,user,setUser,setUserType}}>
         {props.children}
     </UserContext.Provider>
   );

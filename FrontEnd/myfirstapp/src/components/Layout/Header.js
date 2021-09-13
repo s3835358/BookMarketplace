@@ -1,8 +1,8 @@
 import React, {useEffect, useState} from 'react'
 import {useUserContext} from '../UserManagement/UserContext';
+import store from "../../store";
 
 export const Header = () => {
-    
     
     const {user} = useUserContext();
     const [logged, setLogged] = useState(false);
@@ -42,6 +42,23 @@ export const Header = () => {
                                 </a>
                             </li>
                         </ul>
+                        {
+                            'userType' in store.getState().security.user?
+                            store.getState().security.user.userType.match("admin")?
+
+                                <ul className="navbar-nav mr-auto">
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/admin">
+                                            Admin
+                                        </a>
+                                    </li>
+                                </ul>
+                                :
+                                <div></div>
+                            :
+                            <div></div>
+                        }
+                        
 
                         <ul className="navbar-nav ml-auto" >
                             {logged?
