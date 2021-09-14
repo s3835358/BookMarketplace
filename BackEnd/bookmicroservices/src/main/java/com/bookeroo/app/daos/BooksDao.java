@@ -42,8 +42,8 @@ public class BooksDao {
 
     public Book saveBook(Book book) {
         // Adds book to database
-        String query = "insert into `books`(`id`,`title`) values(?, ?)";
-        jdbcTemplate.update(query, book.getId(), book.getTitle());
+        String query = "insert into `books`(`id`,`title`,`author`,`publisher`,`isbn`,`year`) values(?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), book.getIsbn(), book.getYear());
 
         // Asks database to return the book we just added so that we may have the correct id
         // Since the id is autoincremented by the database
