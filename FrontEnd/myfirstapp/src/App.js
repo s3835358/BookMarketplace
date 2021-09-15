@@ -15,6 +15,7 @@ import Admin from "./components/UserManagement/Admin";
 import Login from "./components/UserManagement/Login";
 import Logout from "./components/UserManagement/Logout";
 import Catalogue from "./components/Catalogue";
+import AboutContact from "./components/AboutContact";
 
 import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
@@ -69,6 +70,7 @@ export const App = () => {
               <Route path="/admin" exact component={Admin} />
               <Route path="/login" exact component={Login} />
               <Route path="/logout" exact component={Logout} />
+              <Route path="/aboutContact" exact component={AboutContact} />
 
               {
                 //Private Routes

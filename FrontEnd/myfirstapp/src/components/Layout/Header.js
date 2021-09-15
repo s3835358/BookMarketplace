@@ -42,6 +42,13 @@ export const Header = () => {
                                 </a>
                             </li>
                         </ul>
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <a className="nav-link" href="/aboutContact">
+                                    About Us/Contact
+                                </a>
+                            </li>
+                        </ul>
                         {
                             'userType' in store.getState().security.user?
                             store.getState().security.user.userType.match("admin")?
