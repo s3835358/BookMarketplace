@@ -2,7 +2,6 @@
   
 import React from "react";
 import "./App.css";
-import Dashboard from "./components/Dashboard";
 import Header from "./components/Layout/Header";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
@@ -75,7 +74,6 @@ export const App = () => {
               {
                 //Private Routes
               }
-              <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/catalogue" component={Catalogue} />
             </Switch>
           </div>

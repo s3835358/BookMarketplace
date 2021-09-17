@@ -27,14 +27,7 @@ export const Header = () => {
                     </button>
 
                     <div className="collapse navbar-collapse" id="mobile-nav">
-                        <ul className="navbar-nav mr-auto">
-                            <li className="nav-item">
-                                <a className="nav-link" href="/dashboard">
-                                    Dashboard
-                                </a>
-                            </li>
-                        </ul>
-
+                        
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
                                 <a className="nav-link" href="/catalogue">
@@ -50,7 +43,7 @@ export const Header = () => {
                             </li>
                         </ul>
                         {
-                            'userType' in store.getState().security.user?
+                            logged && 'userType' in store.getState().security.user?
                             store.getState().security.user.userType.match("admin")?
 
                                 <ul className="navbar-nav mr-auto">

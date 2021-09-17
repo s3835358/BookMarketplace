@@ -26,8 +26,12 @@ export const Admin = props => {
         console.log(req);
         // Post request to register account
         axios.post(`https://salty-caverns-05675.herokuapp.com/books/addBook`,req).then(res => {
-            console.log(res.data)
-            
+            console.log(res)
+            if(res.status === 200) {
+              alert(res.data.title + " has been added..");
+            } else {
+              alert(state.title + " was not added..");
+            }
             
         }).catch(err =>{
             alert("Incorrect values");
@@ -96,6 +100,7 @@ export const Admin = props => {
 
                 <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">Add Book</div>
             </div>
+            <div>Check catalogue to see if book has been added.</div>
         </div>
     );
   

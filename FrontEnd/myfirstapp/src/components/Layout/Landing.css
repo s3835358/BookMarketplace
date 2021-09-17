@@ -9,21 +9,18 @@
     font-size: calc(8px + 2vmin);
     position: relative;
     background-position: center;
-
     margin-top: -30px;
     margin-bottom: -50px;
 }
 
-/*col-md-12 text-center
-*/
+
 .landing-title{
     border: 1cm;
     background-color: black;
     color: aliceblue;
     font-size:30pt;
-    opacity: 100%;
     padding: 0px 50px 25px 50px;
     align-items: center;
     display: flex;
-    flex-direction: column;
+    flex-direction: column;    
 }

@@ -5,7 +5,7 @@ import "./Catalogue.css"
 
 function Catalogue() {
 
-    const [catalogue, setCatalogue] = useState([]);
+    const [catalogue, setCatalogue] = useState(["Loading..."]);
     const [query, setQuery] = useState("");
     const [selected, setSelected] = useState([]);
 
@@ -44,9 +44,9 @@ function Catalogue() {
                     })}
 
                 </div>
-                <div className="bookDetails">
-                    {selected.length == 0?
-                    <div/>
+                <div className="bookDetails" style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+                    {selected.length === 0?
+                    <div>Click on a book to view details</div>
                     :
                     <div>
                         <div>Title: {selected.title}</div>

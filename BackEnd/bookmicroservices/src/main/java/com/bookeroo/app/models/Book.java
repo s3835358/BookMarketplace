@@ -1,8 +1,5 @@
 package com.bookeroo.app.models;
 
-import java.sql.Date;
-import java.time.Year;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

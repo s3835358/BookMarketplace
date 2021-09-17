@@ -9,9 +9,6 @@ export const createNewUser = (newUser, history) => async dispatch => {
 
 
     try{
-        console.log(newUser.username);
-        console.log(newUser.password);
-        console.log(newUser.fullName);
         await axios.post("https://sept-login-service.herokuapp.com/api/users/register", newUser).then((response) => {         
             
             console.log(response.data);
@@ -36,16 +33,13 @@ export const createNewUser = (newUser, history) => async dispatch => {
 
 export const login = LoginRequest => async dispatch => {
     
-  console.log("HI2");
-
   const{setUser} = useUserContext();
 
   try {
     // post => Login Request
     const res = await axios.post("https://sept-login-service.herokuapp.com/api/users/login", LoginRequest);
     // extract token from res.data
-    console.log(res);
-    console.log(res.data);
+
     setUser(LoginRequest.username);
     const { token } = res.data;
     // store the token in the localStorage
@@ -73,6 +67,7 @@ export const login = LoginRequest => async dispatch => {
 
     localStorage.removeItem("jwtToken");
     localStorage.removeItem("user");
+    localStorage.removeItem("userType");
     setJWTToken(false);
     
     dispatch({

@@ -13,7 +13,6 @@ export const Login = props => {
   const [password,setPassword] = useState("");
 
   const{setUser} = useUserContext();
-  const{token,setToken} = useUserContext();
 
   function handleSubmit(event) {
 
@@ -26,14 +25,9 @@ export const Login = props => {
     
     // Post request to api, passing our username and password as data
     axios.post(`https://sept-login-service.herokuapp.com/api/users/login`,req).then(res => {
-        console.log(res.data);
 
         if(res.data.success) {
-            
-            console.log("hfg: ")
-            console.log(res.data.token)
-            console.log(res.data[`token`])
-            
+                        
             const { token } = res.data;
 
             const decoded = jwt_decode(token);
@@ -46,7 +40,6 @@ export const Login = props => {
             setUser(username)
             localStorage.setItem("jwtToken", token);
             localStorage.setItem("user", username);
-            console.log("hfg: " + token)
             props.history.push("/");
 
         } else{

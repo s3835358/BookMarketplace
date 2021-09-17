@@ -11,8 +11,7 @@ class Logout extends Component {
 
     componentDidMount() {
         this.props.logout();
-        console.log("FEESF");
-        this.props.history.push("/dashboard");
+        this.props.history.push("/");
     }
 
     render() {
