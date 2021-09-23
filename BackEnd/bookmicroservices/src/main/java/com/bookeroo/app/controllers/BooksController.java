@@ -49,6 +49,16 @@ public class BooksController {
 	}
 
 	/*
+	 *	Based on https://www.baeldung.com/spring-resttemplate-post-json
+	 * 
+	 */
+	@PostMapping(value = "/editBook", consumes ="application/json", produces = "application/json")
+	public Book editBook(@RequestBody Book book) {
+		
+		return booksDao.updateBook(book);
+	}
+
+	/*
 	 *	Requesting '/books/getTitles' will return a list of all the 
 	 *	titles from the books table in the database.
 	 */

@@ -27,6 +27,8 @@ public class Book {
     // Format as 2015-02-15
     @JsonProperty("year")
     private String year;
+    @JsonProperty("category")
+    private String category;
 
     public Book() {
     }
@@ -63,6 +65,11 @@ public class Book {
         return id;
     }
 
+    @JsonProperty("category")
+    public String getCategory() {
+        return category;
+    }
+
     @JsonProperty("title")
     public void setTitle(String title) {
         this.title = title;
@@ -91,5 +98,10 @@ public class Book {
     @JsonProperty("year")
     public void setYear(String year) {
         this.year = year;
+    }
+
+    @JsonProperty("category")
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

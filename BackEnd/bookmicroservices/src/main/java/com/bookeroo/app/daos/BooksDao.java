@@ -42,13 +42,23 @@ public class BooksDao {
 
     public Book saveBook(Book book) {
         // Adds book to database
-        String query = "insert into `books`(`id`,`title`,`author`,`publisher`,`isbn`,`year`) values(?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), book.getIsbn(), book.getYear());
+        String query = "insert into `books`(`id`,`title`,`author`,`publisher`,`isbn`,`year`, `category`) values(?, ?, ?, ?, ?, ?, ?, ?);";
+        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), book.getIsbn(), book.getYear(), book.getCategory());
 
         // Asks database to return the book we just added so that we may have the correct id
         // Since the id is autoincremented by the database
         String query2 = "SELECT * FROM `books` WHERE `title`= ?;";
         return jdbcTemplate.queryForObject(query2, new BookMapper(), book.getTitle());
+    }
+
+    public Book updateBook(Book book) {
+        String query = "update `books` set `id` = ?, `title` = ?, `author` = ?, `publisher` = ?,`isbn` = ?,`year` = ?, `category` = ? where `id` = ?;";
+        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), book.getIsbn(), book.getYear(), book.getCategory(), book.getId());
+
+        // Asks database to return the book we just added so that we may have the correct id
+        // Since the id is autoincremented by the database
+       
+        return book;
     }
 
 }

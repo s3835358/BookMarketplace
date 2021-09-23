@@ -44,7 +44,7 @@ export const Header = () => {
                         </ul>
                         {
                             logged && 'userType' in store.getState().security.user?
-                            store.getState().security.user.userType.match("admin")?
+                                store.getState().security.user.userType.match("admin")?
 
                                 <ul className="navbar-nav mr-auto">
                                     <li className="nav-item">

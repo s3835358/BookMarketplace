@@ -23,7 +23,7 @@ function Catalogue() {
     return (
         <div className="catalogue">
             
-            <input type="text" placeholder="Enter title, author or ISBN" 
+            <input type="text" placeholder="Enter title, author, ISBN or category" 
             style = {{maxWidth:"40%", marginLeft:"30%", textAlign:"center"}} onChange={e=> {setQuery(e.target.value.toLowerCase())}}/>
 
             <div className="booksDisplay" style={{display:"flex", flexDirection:"row"}}>    
@@ -33,7 +33,8 @@ function Catalogue() {
                         if(query.length > 0 && 
                             (bookArr.title.toLowerCase().includes(query) 
                             || bookArr.isbn.toLowerCase().includes(query)
-                            || bookArr.author.toLowerCase().includes(query))) {
+                            || bookArr.author.toLowerCase().includes(query)
+                            || bookArr.category.toLowerCase().includes(query))) {
                             return bookArr;
                         } else if(query.length === 0) {
                             return bookArr;
@@ -54,6 +55,7 @@ function Catalogue() {
                         <div>Publisher: {selected.publisher}</div>
                         <div>ISBN: {selected.isbn}</div>
                         <div>Year: {selected.year}</div>
+                        <div>Category: {selected.category}</div>
                     </div>
                     }
                     
