@@ -3,6 +3,7 @@ import { createNewUser } from "../../actions/securityActions";
 import * as PropTypes from 'prop-types'
 import { connect } from "react-redux";
 import { Form, FloatingLabel} from "react-bootstrap";
+import store from "../../store";
 
 class Register extends Component {
   constructor() {
@@ -27,12 +28,21 @@ class Register extends Component {
 
   onSubmit(e) {
     e.preventDefault();
+
+    var type = this.state.userType;
+
+    if('userType' in store.getState().security.user) {
+      if(store.getState().security.user.userType.match("admin")) {
+        type = "admin";
+      }
+    }
+
     const newUser = {
       username: this.state.username,
       fullName: this.state.fullName,
       password: this.state.password,
       confirmPassword: this.state.confirmPassword,
-      userType: this.state.userType,
+      userType: type,
       phone: this.state.phone,
       address: this.state.address,
       abn: this.state.abn,
@@ -99,19 +109,30 @@ class Register extends Component {
                   />
                 </div>
                 <div>
-                  <FloatingLabel label="User Type">
-                    <Form.Select 
-                      size="lg"
-                      style={{height:"10%"}}
-                      name="userType"
-                      value={this.state.userType}
-                      onChange={this.onChange}>
-                      <option hidden></option>
-                      <option value="customer">Customer</option>
-                      <option value="shopOwner">Shop Owner</option>
-                      <option value="publisher">Publisher</option>
-                    </Form.Select>
-                  </FloatingLabel>
+                  {
+                    'userType' in store.getState().security.user?
+
+                      store.getState().security.user.userType.match("admin")?
+
+                        <div/>
+                      :
+                        <div/>
+                    :
+                      <FloatingLabel label="User Type">
+                        <Form.Select 
+                          size="lg"
+                          style={{height:"10%"}}
+                          name="userType"
+                          value={this.state.userType}
+                          onChange={this.onChange}>
+                          <option hidden></option>
+                          <option value="customer">Customer</option>
+                          <option value="shopOwner">Shop Owner</option>
+                          <option value="publisher">Publisher</option>
+                        </Form.Select>
+                      </FloatingLabel>
+                    
+                  }
                 </div>
                 {this.state.userType.match("shopOwner") || this.state.userType.match("publisher")?
                   <div>

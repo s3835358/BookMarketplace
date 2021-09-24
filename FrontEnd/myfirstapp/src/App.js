@@ -10,7 +10,10 @@ import store from "./store";
 
 import Landing from "./components/Layout/Landing";
 import Register from "./components/UserManagement/Register";
-import Admin from "./components/UserManagement/Admin";
+import AddBook from "./components/Admin/AddBook";
+import EditBook from "./components/Admin/EditBook";
+import UserList from "./components/Admin/UserList";
+import BlackList from "./components/Admin/BlackList";
 import Login from "./components/UserManagement/Login";
 import Logout from "./components/UserManagement/Logout";
 import Catalogue from "./components/Catalogue";
@@ -66,7 +69,10 @@ export const App = () => {
               </Route>
               <Route path="/landing" exact component={Landing} />
               <Route path="/register" exact component={Register} />
-              <Route path="/admin" exact component={Admin} />
+              <Route path="/addBook" exact component={AddBook} />
+              <Route path="/editBook" exact component={EditBook} />
+              <Route path="/userList" exact component={UserList} />
+              <Route path="/blackList" exact component={BlackList} />
               <Route path="/login" exact component={Login} />
               <Route path="/logout" exact component={Logout} />
               <Route path="/aboutContact" exact component={AboutContact} />

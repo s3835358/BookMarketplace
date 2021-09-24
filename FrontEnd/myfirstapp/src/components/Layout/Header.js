@@ -46,10 +46,19 @@ export const Header = () => {
                             logged && 'userType' in store.getState().security.user?
                                 store.getState().security.user.userType.match("admin")?
 
-                                <ul className="navbar-nav mr-auto">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/admin">
-                                            Admin
+                                <ul className="navbar-nav mr-auto" >
+                                    <li className="nav-item" style={{display:"flex", flexDirection:"row"}}>
+                                        <a className="nav-link" href="/addBook">
+                                            Add Book
+                                        </a>
+                                        <a className="nav-link" href="/editBook">
+                                            Edit Book
+                                        </a>
+                                        <a className="nav-link" href="/userList">
+                                            User List
+                                        </a>
+                                        <a className="nav-link" href="/blackList">
+                                            BlackList
                                         </a>
                                     </li>
                                 </ul>

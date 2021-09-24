@@ -6,7 +6,7 @@ import {useUserContext} from '../UserManagement/UserContext';
 import { customStyles } from "../Layout/selectStyle";
 
 
-export const Admin = props => {
+export const BlackList = props => {
     
     const [state,setState] = useState({
         title:"",
@@ -20,6 +20,7 @@ export const Admin = props => {
     const [logged, setLogged] = useState(false);
     const {user} = useUserContext();
     const [bookOpts, setBookOpts] = useState([]);
+    const [featureSelected, setFeatureSelected] = useState("addBook");
     const [bookSelected, setBookSelected] = useState({
         id:"",
         title:"",
@@ -130,103 +131,37 @@ export const Admin = props => {
   };
 
     return (
-        <div>
+        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+          <div style={{alignItems:"center", width:"50%", display:"flex", flexDirection:"row",justifyContent:"center"}}>
+            <div type="button" onClick={() => setFeatureSelected("addBook")} 
+            className="btn btn-info btn-block mt-4" style={{margin:"5%"}}>Add Book</div>
+            <div type="button" onClick={() => setFeatureSelected("editBook")} 
+            className="btn btn-info btn-block mt-4" style={{margin:"5%"}}>Edit Book</div>
+            <div type="button" onClick={() => setFeatureSelected("addUser")} 
+            className="btn btn-info btn-block mt-4" style={{margin:"5%"}}>Add User</div>
+          </div>
+          
           {
             logged && 'userType' in store.getState().security.user?
               store.getState().security.user.userType.match("admin")?
+                featureSelected.match("addBook") || featureSelected.match("editBook")?
+                  featureSelected.match("editBook")?
 
-              <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
-                  <div className ="addBook" style ={{width:"30%"}}>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="Book Title"
-                          name="bookTitle"
-                          value={state.title}
-                          onChange={(ev) => setState({...state, title: ev.target.value})}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="Author"
-                          name="author"
-                          value={state.author}
-                          onChange={(ev) => setState({...state, author: ev.target.value})}
-                        />
-                      </div>
-                      
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="Publisher"
-                          name="publisher"
-                          value={state.publisher}
-                          onChange={(ev) => setState({...state, publisher: ev.target.value})}
-                        />
-                      </div>
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="ISBN"
-                          name="isbn"
-                          value={state.isbn}
-                          onChange={(ev) => setState({...state, isbn: ev.target.value})}
-                        />
-                      </div>
-
-                      <div className="form-group">
-                          <input
-                              className="form-control form-control-lg"
-                              value={state.year}
-                              onChange={(ev) => setState({...state, year: ev.target.value})}
-                              placeholder="1990"
-                              type="number"
-                              min="0000"
-                              max="2025"
-                              name="year"
-                              id="year"
-                          />
-                      </div>
-
-                      <div className="form-group">
-                        <input
-                          type="text"
-                          className="form-control form-control-lg"
-                          placeholder="Category"
-                          name="category"
-                          value={state.category}
-                          onChange={(ev) => setState({...state, category: ev.target.value})}
-                        />
-                      </div>
-
-                      <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">Add Book</div>
-                  </div>
-                  <p/>
-                  <div>Check catalogue to see if book has been added.</div>
-                  <p/>
-                  <div style={{width:"30%"}}>
-                    <Select 
-                      styles={customStyles}
-                      placeholder="Select Book to edit"
-                      options={bookOpts}
-                      onChange={opt => setBookSelected({...bookSelected, 
-                        id: opt.value,
-                        title: opt.label,
-                        author: opt.author,
-                        publisher: opt.publisher,
-                        isbn: opt.isbn,
-                        year: opt.year,
-                        category: opt.category
-                      })}
-                    />
-                  </div>
-                  <p/>
-                  <div className ="editBook" style ={{width:"30%"}}>
+                    <div className ="editBook" style ={{width:"30%"}}>
+                      <Select 
+                        styles={customStyles}
+                        placeholder="Select Book to edit"
+                        options={bookOpts}
+                        onChange={opt => setBookSelected({...bookSelected, 
+                          id: opt.value,
+                          title: opt.label,
+                          author: opt.author,
+                          publisher: opt.publisher,
+                          isbn: opt.isbn,
+                          year: opt.year,
+                          category: opt.category
+                        })}
+                      />
                       <div className="form-group">
                         <input
                           type="text"
@@ -295,8 +230,88 @@ export const Admin = props => {
                       </div>
 
                       <div type="button" onClick={editSubmit} className="btn btn-info btn-block mt-4">Submit edits to Book</div>
+                    </div>
+                    :
+                    <div className ="addBook" style ={{width:"30%"}}>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            placeholder="Book Title"
+                            name="bookTitle"
+                            value={state.title}
+                            onChange={(ev) => setState({...state, title: ev.target.value})}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            placeholder="Author"
+                            name="author"
+                            value={state.author}
+                            onChange={(ev) => setState({...state, author: ev.target.value})}
+                          />
+                        </div>
+                        
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            placeholder="Publisher"
+                            name="publisher"
+                            value={state.publisher}
+                            onChange={(ev) => setState({...state, publisher: ev.target.value})}
+                          />
+                        </div>
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            placeholder="ISBN"
+                            name="isbn"
+                            value={state.isbn}
+                            onChange={(ev) => setState({...state, isbn: ev.target.value})}
+                          />
+                        </div>
+
+                        <div className="form-group">
+                            <input
+                                className="form-control form-control-lg"
+                                value={state.year}
+                                onChange={(ev) => setState({...state, year: ev.target.value})}
+                                placeholder="1990"
+                                type="number"
+                                min="0000"
+                                max="2025"
+                                name="year"
+                                id="year"
+                            />
+                        </div>
+
+                        <div className="form-group">
+                          <input
+                            type="text"
+                            className="form-control form-control-lg"
+                            placeholder="Category"
+                            name="category"
+                            value={state.category}
+                            onChange={(ev) => setState({...state, category: ev.target.value})}
+                          />
+                        </div>
+
+                        <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">Add Book</div>
+                    </div>
+                 
+                  :
+                  <div>
+                    
+                    <a className="nav-link " href="register">
+                        Add User (inc Admin)
+                    </a>
+                    
                   </div>
-              </div>
+                  
               :
               <div></div>
             :
@@ -308,4 +323,4 @@ export const Admin = props => {
     );
   
 }
-export default Admin;
+export default BlackList;
