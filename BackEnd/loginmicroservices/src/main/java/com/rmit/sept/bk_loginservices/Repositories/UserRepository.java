@@ -46,4 +46,11 @@ public class UserRepository {
         return null;
     }
 
+    public List<User> shopRequests() {
+
+        String query = "SELECT * FROM `users` WHERE `pending` = 'true';";
+
+        return jdbcTemplate.query(query, new UserMapper());
+    }
+
 }

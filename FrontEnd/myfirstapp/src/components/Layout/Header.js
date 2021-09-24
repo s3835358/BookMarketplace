@@ -60,6 +60,9 @@ export const Header = () => {
                                         <a className="nav-link" href="/blackList">
                                             BlackList
                                         </a>
+                                        <a className="nav-link" href="/inbox">
+                                            Inbox
+                                        </a>
                                     </li>
                                 </ul>
                                 :

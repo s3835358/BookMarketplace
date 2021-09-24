@@ -14,6 +14,7 @@ import AddBook from "./components/Admin/AddBook";
 import EditBook from "./components/Admin/EditBook";
 import UserList from "./components/Admin/UserList";
 import BlackList from "./components/Admin/BlackList";
+import Inbox from "./components/Admin/Inbox";
 import Login from "./components/UserManagement/Login";
 import Logout from "./components/UserManagement/Logout";
 import Catalogue from "./components/Catalogue";
@@ -37,7 +38,7 @@ if (jwtToken) {
     type: SET_CURRENT_USER,
     payload: decoded_jwtToken
   });
-
+  // Logs user out after 30 seconds
   const currentTime = Date.now() / 1000;
   if (decoded_jwtToken.exp < currentTime) {
     
@@ -69,10 +70,7 @@ export const App = () => {
               </Route>
               <Route path="/landing" exact component={Landing} />
               <Route path="/register" exact component={Register} />
-              <Route path="/addBook" exact component={AddBook} />
-              <Route path="/editBook" exact component={EditBook} />
-              <Route path="/userList" exact component={UserList} />
-              <Route path="/blackList" exact component={BlackList} />
+              
               <Route path="/login" exact component={Login} />
               <Route path="/logout" exact component={Logout} />
               <Route path="/aboutContact" exact component={AboutContact} />
@@ -81,6 +79,11 @@ export const App = () => {
                 //Private Routes
               }
               <Route exact path="/catalogue" component={Catalogue} />
+              <Route exact path="/addBook" component={AddBook} />
+              <Route exact path="/editBook" component={EditBook} />
+              <Route exact path="/userList" component={UserList} />
+              <Route exact path="/blackList" component={BlackList} />
+              <Route exact path="/inbox" component={Inbox} />
             </Switch>
           </div>
         </Router>
