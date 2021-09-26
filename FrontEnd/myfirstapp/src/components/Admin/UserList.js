@@ -15,6 +15,7 @@ export const UserList = props => {
     const [users, setUsers] = useState([]);
     const [selected, setSelected] = useState([]);
     const [edit, setEdit] = useState(EMPTY_USER);
+    const [refresh, setRefresh] = useState();
 
     
     useEffect (() => {
@@ -40,7 +41,7 @@ export const UserList = props => {
       
       });
       
-    }, [user]);
+    }, [user, refresh]);
 
     const userCols = useMemo(
       () => [
@@ -54,6 +55,19 @@ export const UserList = props => {
       ],
       []
     ); 
+
+    function block(id) {
+      
+      var req = {
+        "token": localStorage.jwtToken,
+        "id": id
+      }
+
+      axios.post("https://sept-login-service.herokuapp.com/api/users/blockUser", req).then((response) => {         
+
+        setRefresh(response);    
+      });
+    }
     
 
     return (
@@ -85,7 +99,8 @@ export const UserList = props => {
                                 {edit == user.id? setEdit(EMPTY_USER) : setEdit(user.id)}}
                                 type ="button" style={{margin:"0% 0% 5% 0%"}}>Edit</div>
 
-                                <div className="btn btn-info btn-block mt-4" 
+                                <div className="btn btn-info btn-block mt-4" onClick={e=> 
+                                {block(user.id)}}
                                 type ="button" style={{margin:"0% 0% 5% 5%"}}>Block</div>
 
                               </div>

@@ -38,6 +38,7 @@ public class User implements UserDetails {
     private String busName;
     private Date create_At;
     private Date update_At;
+    private String token;
 
     //OneToMany with Project
 
@@ -135,6 +136,14 @@ public class User implements UserDetails {
 
     public Date getCreate_At() {
         return create_At;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public Date getUpdate_At() {

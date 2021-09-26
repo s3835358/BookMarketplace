@@ -53,9 +53,6 @@ public class UserController {
     public ResponseEntity<?> registerUser(@Valid @RequestBody User user, BindingResult result){
         // Validate passwords match
         userValidator.validate(user,result);
-        System.out.println("received ....");
-        System.out.println(user);
-        System.out.printf("Name: %s, \nemail: %s, \npassword: %s, \ncPassword: %s\n",user.getFullName(), user.getUsername(), user.getPassword(), user.getConfirmPassword());
 
         ResponseEntity<?> errorMap = mapValidationErrorService.MapValidationService(result);
         System.out.println("ManualErrReport " + errorMap);
@@ -141,6 +138,56 @@ public class UserController {
         }
 
         return users;
-    }    
+    }
+    
+    @PostMapping(value = "/editUser", consumes ="application/json", produces = "application/json")
+    public ResponseEntity<?> editUser(@RequestBody User user){
+
+                
+        String token = user.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+
+        ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        boolean valid = tokenProvider.validateToken(token);
+    
+        if(valid) {
+            userRepository.editUser(user);
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        } 
+
+        return responseEntity;
+    }
+
+    @PostMapping(value = "/blockUser", consumes ="application/json", produces = "application/json")
+    public ResponseEntity<?> blockUser(@RequestBody RequestResponse req){
+        
+        String token = req.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+
+        ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        boolean valid = tokenProvider.validateToken(token);
+    
+        if(valid) {
+            userRepository.blockUser(req.getId());
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        } 
+
+        return responseEntity;
+    }
+
+    
+    @PostMapping(value = "/getBlacklist", consumes ="application/json", produces = "application/json")
+    public List<User> getBlacklist(@RequestBody Token tokenBody){
+        
+        List<User> users = null;
+        String token = tokenBody.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+    
+        if(tokenProvider.validateToken(token)) {
+            users = userRepository.getBlacklist();
+        }
+
+        return users;
+    }
 
 }

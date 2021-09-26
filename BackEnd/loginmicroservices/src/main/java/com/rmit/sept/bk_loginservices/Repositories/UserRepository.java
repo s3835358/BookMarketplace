@@ -17,10 +17,10 @@ public class UserRepository {
 
         
         String query = "INSERT INTO `users`(`fullName`, `username`, `password`, `userType`, `address`,";
-        query += "`phone`, `pending`, `abn`) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+        query += "`phone`, `pending`, `abn`, `busName`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         jdbcTemplate.update(query, user.getFullName(), user.getUsername(), user.getPassword(), user.getUserType(),
-        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn());
+        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn(), user.getBusName());
 
         return findByUsername(user.getUsername());
     }
@@ -55,7 +55,14 @@ public class UserRepository {
 
     public List<User> getUsers() {
 
-        String query = "SELECT * FROM `users`;";
+        String query = "SELECT * FROM `users` WHERE `pending` != 'block';";
+
+        return jdbcTemplate.query(query, new UserMapper());
+    }
+
+    public List<User> getBlacklist() {
+
+        String query = "SELECT * FROM `users` WHERE `pending` = 'block';";
 
         return jdbcTemplate.query(query, new UserMapper());
     }
@@ -70,6 +77,22 @@ public class UserRepository {
         String query = "UPDATE `users` SET `pending` = 'false', `userType` = ? where `id` = ?;";
 
         return jdbcTemplate.update(query, type, id);
+    }
+
+    public int editUser(User user) {
+
+        String query = "UPDATE `users` SET `fullName` = ?, `username` = ?, `password` = ?, `userType` = ?,";
+        query += " `address` = ?,`phone` = ? , `pending` = ?, `abn` = ?, `busName` = ? WHERE `id` = ?;";
+
+        return jdbcTemplate.update(query, user.getFullName(), user.getUsername(), user.getPassword(), user.getUserType(),
+        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn(), user.getBusName(), user.getId());
+    }
+
+    public int blockUser(long id) {
+
+        String query = "UPDATE `users` SET `pending` = 'block' where `id` = ?;";
+
+        return jdbcTemplate.update(query, id);
     }
 
 
