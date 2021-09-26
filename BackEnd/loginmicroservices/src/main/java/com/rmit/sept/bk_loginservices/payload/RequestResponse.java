@@ -8,6 +8,8 @@ public class RequestResponse {
     private String token;
     private long id;
     private boolean accept;
+    private String abn;
+    private String busName;
 
     public String getToken() {
         return token;
@@ -19,5 +21,13 @@ public class RequestResponse {
 
     public boolean getAccept() {
         return accept;
+    }
+
+    public String getAbn() {
+        return abn;
+    }
+
+    public String getBusName() {
+        return busName;
     }
 }

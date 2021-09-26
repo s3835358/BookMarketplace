@@ -102,7 +102,7 @@ public class UserController {
         String token = tokenBody.getToken();
         token = token.substring(TOKEN_PREFIX.length());
     
-        if(tokenProvider.validateToken(token)) {
+        if(tokenProvider.validateToken(token) && tokenProvider.isAdmin(token)) {
             requests = userRepository.shopRequests();
         }
 
@@ -116,7 +116,7 @@ public class UserController {
         token = token.substring(TOKEN_PREFIX.length());
 
         ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
-        boolean valid = tokenProvider.validateToken(token);
+        boolean valid = tokenProvider.validateToken(token) && tokenProvider.isAdmin(token);
     
         if(valid) {
             userRepository.approveRejectShop(req.getId(), req.getAccept());
@@ -133,7 +133,7 @@ public class UserController {
         String token = tokenBody.getToken();
         token = token.substring(TOKEN_PREFIX.length());
     
-        if(tokenProvider.validateToken(token)) {
+        if(tokenProvider.validateToken(token) && tokenProvider.isAdmin(token)) {
             users = userRepository.getUsers();
         }
 
@@ -148,7 +148,7 @@ public class UserController {
         token = token.substring(TOKEN_PREFIX.length());
 
         ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
-        boolean valid = tokenProvider.validateToken(token);
+        boolean valid = tokenProvider.validateToken(token) && tokenProvider.isAdmin(token);
     
         if(valid) {
             userRepository.editUser(user);
@@ -165,7 +165,7 @@ public class UserController {
         token = token.substring(TOKEN_PREFIX.length());
 
         ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
-        boolean valid = tokenProvider.validateToken(token);
+        boolean valid = tokenProvider.validateToken(token) && tokenProvider.isAdmin(token);
     
         if(valid) {
             userRepository.blockUser(req.getId());
@@ -183,11 +183,28 @@ public class UserController {
         String token = tokenBody.getToken();
         token = token.substring(TOKEN_PREFIX.length());
     
-        if(tokenProvider.validateToken(token)) {
+        if(tokenProvider.validateToken(token) && tokenProvider.isAdmin(token)) {
             users = userRepository.getBlacklist();
         }
 
         return users;
+    }
+
+    @PostMapping(value = "/requestShop", consumes ="application/json", produces = "application/json")
+    public ResponseEntity<?> requestShop(@RequestBody RequestResponse req){
+        
+        String token = req.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+
+        ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        boolean valid = tokenProvider.validateToken(token);
+    
+        if(valid) {
+            userRepository.requestShop(tokenProvider.getUserIdFromJWT(token), req.getAbn(), req.getBusName());
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        } 
+
+        return responseEntity;
     }
 
 }

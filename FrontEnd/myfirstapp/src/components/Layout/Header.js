@@ -76,6 +76,11 @@ export const Header = () => {
                             {logged?
                                 <div style = {{display:"flex", flexDirection:"row"}}>
                                     <li className="nav-item">
+                                        <a className="nav-link" href="/settings">
+                                            Settings
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
                                         <a className="nav-link" href="/logout">
                                             Log Out
                                         </a>

@@ -17,6 +17,7 @@ import BlackList from "./components/Admin/BlackList";
 import Inbox from "./components/Admin/Inbox";
 import Login from "./components/UserManagement/Login";
 import Logout from "./components/UserManagement/Logout";
+import Settings from "./components/UserManagement/Settings";
 import Catalogue from "./components/Catalogue";
 import AboutContact from "./components/AboutContact";
 
@@ -84,6 +85,7 @@ export const App = () => {
               <Route exact path="/userList" component={UserList} />
               <Route exact path="/blackList" component={BlackList} />
               <Route exact path="/inbox" component={Inbox} />
+              <Route exact path="/settings" component={Settings} />
             </Switch>
           </div>
         </Router>

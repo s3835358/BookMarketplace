@@ -14,7 +14,7 @@ export const Landing = () => {
       } else {
           setLogged(true);
           console.log(user);
-          console.log("HERE");
+          console.log(localStorage.id);
       }
   }, [user]);
 

@@ -65,5 +65,12 @@ public class JwtTokenProvider {
 
         return Long.parseLong(id);
     }
+
+    public boolean isAdmin(String token){
+        Claims claims = Jwts.parser().setSigningKey(SecurityConstant.SECRET).parseClaimsJws(token).getBody();
+        String type = (String)claims.get("userType");
+
+        return type.equals("admin");
+    }
 }
 

@@ -95,5 +95,12 @@ public class UserRepository {
         return jdbcTemplate.update(query, id);
     }
 
+    public int requestShop(long id, String abn, String busName) {
+        
+        String query = "UPDATE `users` SET `pending` = 'true', `abn` = ?, `busName` = ? where `id` = ?;";
+
+        return jdbcTemplate.update(query, abn, busName, id);
+    }
+
 
 }

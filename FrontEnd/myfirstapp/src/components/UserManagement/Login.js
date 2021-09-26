@@ -40,6 +40,7 @@ export const Login = props => {
             setUser(username)
             localStorage.setItem("jwtToken", token);
             localStorage.setItem("user", username);
+            localStorage.setItem("id", decoded.id);
             props.history.push("/");
 
         } else{
