@@ -53,4 +53,24 @@ public class UserRepository {
         return jdbcTemplate.query(query, new UserMapper());
     }
 
+    public List<User> getUsers() {
+
+        String query = "SELECT * FROM `users`;";
+
+        return jdbcTemplate.query(query, new UserMapper());
+    }
+
+    public int approveRejectShop(long id, boolean accept) {
+        String type = "user";
+
+        if(accept) {
+            type = "shop";
+        }
+
+        String query = "UPDATE `users` SET `pending` = 'false', `userType` = ? where `id` = ?;";
+
+        return jdbcTemplate.update(query, type, id);
+    }
+
+
 }

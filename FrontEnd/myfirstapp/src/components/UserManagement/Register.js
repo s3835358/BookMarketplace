@@ -20,7 +20,8 @@ class Register extends Component {
       abn: "",
       pending: "",
       busName: "",
-      errors: {}
+      errors: {},
+      edit: false
     };
     this.onChange = this.onChange.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -57,6 +58,26 @@ class Register extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
 
+  componentDidMount() {
+    if(this.props.toEdit != null) {
+      this.setState({
+        username: this.props.toEdit.username,
+        fullName: this.props.toEdit.fullName,
+        password: "",
+        confirmPassword: "",
+        userType: this.props.toEdit.userType,
+        phone: this.props.toEdit.phone,
+        address: this.props.toEdit.address,
+        abn: this.props.toEdit.abn,
+        pending: this.props.toEdit.pending,
+        busName: this.props.toEdit.busName,
+        errors: {},
+        edit: true
+      });
+
+    } 
+  }
+
   render() {
      
 
@@ -65,8 +86,31 @@ class Register extends Component {
         <div className="container">
           <div className="row">
             <div className="col-md-8 m-auto">
-              <h1 className="display-4 text-center">Sign Up</h1>
-              <p className="lead text-center">Create your Account</p>
+              
+              {
+                    'userType' in store.getState().security.user?
+
+                      store.getState().security.user.userType.match("admin") && this.state.edit?
+                
+                          <div>
+                            <h1 className="display-4 text-center">Edit User</h1>
+                            <p className="lead text-center">Adjust the details</p>
+                          </div>
+                        
+                        :
+
+                        <div>
+                          <h1 className="display-4 text-center">Add Admin User</h1>
+                          <p className="lead text-center">Create the Account</p>
+                        </div>
+
+                      
+                    :                     
+                      <div>
+                        <h1 className="display-4 text-center">Sign Up</h1>
+                        <p className="lead text-center">Create your Account</p>
+                      </div>
+              }
               <form onSubmit={this.onSubmit}>
                 <div className="form-group">
                   <input
@@ -110,7 +154,7 @@ class Register extends Component {
                 </div>
                 <div>
                   {
-                    'userType' in store.getState().security.user?
+                    'userType' in store.getState().security.user && !this.state.edit?
 
                       store.getState().security.user.userType.match("admin")?
 

@@ -4,6 +4,7 @@ package com.rmit.sept.bk_loginservices.web;
 import com.rmit.sept.bk_loginservices.model.User;
 import com.rmit.sept.bk_loginservices.payload.JWTLoginSucessReponse;
 import com.rmit.sept.bk_loginservices.payload.LoginRequest;
+import com.rmit.sept.bk_loginservices.payload.RequestResponse;
 import com.rmit.sept.bk_loginservices.payload.Token;
 import com.rmit.sept.bk_loginservices.security.JwtTokenProvider;
 import com.rmit.sept.bk_loginservices.services.MapValidationErrorService;
@@ -106,12 +107,40 @@ public class UserController {
     
         if(tokenProvider.validateToken(token)) {
             requests = userRepository.shopRequests();
-            System.out.println("Made... ");
         }
-
-        System.out.println("Here ");
 
         return requests;
     }
+
+    @PostMapping(value = "/approveRejectShop", consumes ="application/json", produces = "application/json")
+    public ResponseEntity<?> approveRejectShop(@RequestBody RequestResponse req){
+        
+        String token = req.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+
+        ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        boolean valid = tokenProvider.validateToken(token);
+    
+        if(valid) {
+            userRepository.approveRejectShop(req.getId(), req.getAccept());
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        } 
+
+        return responseEntity;
+    }
+
+    @PostMapping(value = "/getUsers", consumes ="application/json", produces = "application/json")
+    public List<User> getUsers(@RequestBody Token tokenBody){
+        
+        List<User> users = null;
+        String token = tokenBody.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+    
+        if(tokenProvider.validateToken(token)) {
+            users = userRepository.getUsers();
+        }
+
+        return users;
+    }    
 
 }
