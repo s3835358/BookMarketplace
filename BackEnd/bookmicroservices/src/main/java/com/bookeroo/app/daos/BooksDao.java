@@ -42,8 +42,11 @@ public class BooksDao {
 
     public Book saveBook(Book book) {
         // Adds book to database
-        String query = "insert into `books`(`id`,`title`,`author`,`publisher`,`isbn`,`year`, `category`) values(?, ?, ?, ?, ?, ?, ?, ?);";
-        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), book.getIsbn(), book.getYear(), book.getCategory());
+        String query = "insert into `books`(`id`,`title`,`author`,`publisher`,`isbn`,";
+        query += "`year`, `category`, `shop`, `qty`, `price`, `condition`, `user`) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), 
+        book.getpublisher(), book.getIsbn(), book.getYear(), book.getCategory(), book.getShop(), 
+        book.getQty(), book.getPrice(), book.getCondition(), book.getUser());
 
         // Asks database to return the book we just added so that we may have the correct id
         // Since the id is autoincremented by the database
@@ -52,8 +55,12 @@ public class BooksDao {
     }
 
     public Book updateBook(Book book) {
-        String query = "update `books` set `id` = ?, `title` = ?, `author` = ?, `publisher` = ?,`isbn` = ?,`year` = ?, `category` = ? where `id` = ?;";
-        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), book.getIsbn(), book.getYear(), book.getCategory(), book.getId());
+        String query = "update `books` set `id` = ?, `title` = ?, `author` = ?, `publisher` = ?,";
+        query+= "`isbn` = ?,`year` = ?, `category` = ?, `shop` = ?, `qty` = ?, `price` = ?, `condition` = ?, `user` = ?  where `id` = ?;";
+        
+        jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), 
+        book.getIsbn(), book.getYear(), book.getCategory(), book.getShop(), book.getQty(), book.getPrice(),
+        book.getCondition(), book.getUser(), book.getId());
 
         // Asks database to return the book we just added so that we may have the correct id
         // Since the id is autoincremented by the database

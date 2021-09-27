@@ -12,17 +12,24 @@ export const AddBook = props => {
         publisher:"",
         isbn:"",
         year:"",
-        category:""
+        category:"",
+        condition:"",
+        qty:"",
+        price:""
     });
 
     const [logged, setLogged] = useState(false);
     const {user} = useUserContext();
+    const [phrase, setPhrase] = useState("Sell");
     
     useEffect (() => {
       if((user === "") && (localStorage.getItem("user") === null)) {
           setLogged(false);
       } else {
           setLogged(true);
+          if(store.getState().security.user.userType.match("admin")){
+            setPhrase("Add");
+          }
       }
       
     }, [user]);
@@ -30,14 +37,26 @@ export const AddBook = props => {
     function handleSubmit() {
 
         // Checks password and confirm password fields match
+        var shopId = "";
+        var userId = "";
+        if(store.getState().security.user.userType.match("shop")) {
+          shopId = String(localStorage.id);
+        } else if (store.getState().security.user.userType.match("user")) {
+          userId = String(localStorage.id);
+        }
         
         var req = {
-            "title": state.title,
-            "author": state.author,
-            "publisher": state.publisher,
-            "isbn": state.isbn,
-            "year": String(state.year),
-            "category": state.category
+          "title": state.title,
+          "author": state.author,
+          "publisher": state.publisher,
+          "isbn": state.isbn,
+          "year": String(state.year),
+          "category": state.category,
+          "condition": state.condition,
+          "qty": state.qty,
+          "price":state.price,
+          "shop": shopId,
+          "user": userId,
         }
         console.log(req);
         // Post request to register account
@@ -55,86 +74,151 @@ export const AddBook = props => {
         
     };
 
-    
+    // Radio button based on positronx.io/react-radio-button-tutorial-with-example/
 
     return (
         <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>          
           {
             logged && 'userType' in store.getState().security.user?
-              store.getState().security.user.userType.match("admin")?
                 
-                <div className ="addBook" style ={{width:"30%"}}>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Book Title"
-                        name="bookTitle"
-                        value={state.title}
-                        onChange={(ev) => setState({...state, title: ev.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Author"
-                        name="author"
-                        value={state.author}
-                        onChange={(ev) => setState({...state, author: ev.target.value})}
-                      />
-                    </div>
-                    
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Publisher"
-                        name="publisher"
-                        value={state.publisher}
-                        onChange={(ev) => setState({...state, publisher: ev.target.value})}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="ISBN"
-                        name="isbn"
-                        value={state.isbn}
-                        onChange={(ev) => setState({...state, isbn: ev.target.value})}
-                      />
-                    </div>
+              <div className ="addBook" style ={{width:"30%"}}>
+                  <h1>{phrase} Book</h1>
 
-                    <div className="form-group">
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Book Title"
+                      name="bookTitle"
+                      value={state.title}
+                      onChange={(ev) => setState({...state, title: ev.target.value})}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Author"
+                      name="author"
+                      value={state.author}
+                      onChange={(ev) => setState({...state, author: ev.target.value})}
+                    />
+                  </div>
+                  
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Publisher"
+                      name="publisher"
+                      value={state.publisher}
+                      onChange={(ev) => setState({...state, publisher: ev.target.value})}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="ISBN"
+                      name="isbn"
+                      value={state.isbn}
+                      onChange={(ev) => setState({...state, isbn: ev.target.value})}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                      <input
+                          className="form-control form-control-lg"
+                          value={state.year}
+                          onChange={(ev) => setState({...state, year: ev.target.value})}
+                          placeholder="1990"
+                          type="number"
+                          min="0000"
+                          max="2025"
+                          name="year"
+                          id="year"
+                      />
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Category"
+                      name="category"
+                      value={state.category}
+                      onChange={(ev) => setState({...state, category: ev.target.value})}
+                    />
+                  </div>
+
+                  {store.getState().security.user.userType.match("admin") 
+                  || store.getState().security.user.userType.match("publish")?
+                    <div/>
+                  :
+                    <div>
+
+                      <div className="form-group">
                         <input
-                            className="form-control form-control-lg"
-                            value={state.year}
-                            onChange={(ev) => setState({...state, year: ev.target.value})}
-                            placeholder="1990"
-                            type="number"
-                            min="0000"
-                            max="2025"
-                            name="year"
-                            id="year"
+                          type="text"
+                          className="form-control form-control-lg"
+                          placeholder="Qty"
+                          name="qty"
+                          value={state.qty}
+                          onChange={(ev) => setState({...state, qty: ev.target.value})}
                         />
-                    </div>
+                      </div>
 
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Category"
-                        name="category"
-                        value={state.category}
-                        onChange={(ev) => setState({...state, category: ev.target.value})}
-                      />
-                    </div>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          placeholder="Price"
+                          name="price"
+                          value={state.price}
+                          onChange={(ev) => setState({...state, price: ev.target.value})}
+                        />
+                      </div>
 
-                    <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">Add Book</div>
-                </div>
-              :
-                <div/>
+                      <div className="form-control form-control-lg">Condition:
+                        {store.getState().security.user.userType.match("shop")?
+                          <div style ={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
+                            
+                            <div>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="new"
+                                  checked={state.condition === "new"}
+                                  onChange= {(e) => {setState({...state, condition: e.target.value});}}
+                                />
+                                New
+                              </label>
+                            </div>
+                
+                            <div>
+                              <label>
+                                <input
+                                  type="radio"
+                                  value="used"
+                                  checked={state.condition === "used"}
+                                  onChange= {(e) => {setState({...state, condition: e.target.value});}}
+                                />
+                                Used
+                              </label>
+                            </div>
+
+                          </div>
+                        :
+                          <div>Used</div>
+                        }
+                      </div>
+
+                    </div>
+                  }
+
+                  <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">{phrase} Book</div>
+              </div>
+              
             :
             <div/>
           }   

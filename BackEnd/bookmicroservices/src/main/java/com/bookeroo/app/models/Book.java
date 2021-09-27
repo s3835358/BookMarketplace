@@ -29,6 +29,16 @@ public class Book {
     private String year;
     @JsonProperty("category")
     private String category;
+    @JsonProperty("shop")
+    private String shop;
+    @JsonProperty("user")
+    private String user;
+    @JsonProperty("qty")
+    private String qty;
+    @JsonProperty("price")
+    private String price;
+    @JsonProperty("condition")
+    private String condition;
 
     public Book() {
     }
@@ -70,6 +80,31 @@ public class Book {
         return category;
     }
 
+    @JsonProperty("shop")
+    public String getShop() {
+        return shop;
+    }
+
+    @JsonProperty("user")
+    public String getUser() {
+        return user;
+    }
+
+    @JsonProperty("qty")
+    public String getQty() {
+        return qty;
+    }
+
+    @JsonProperty("price")
+    public String getPrice() {
+        return price;
+    }
+
+    @JsonProperty("condition")
+    public String getCondition() {
+        return condition;
+    }
+
     @JsonProperty("title")
     public void setTitle(String title) {
         this.title = title;
@@ -104,4 +139,30 @@ public class Book {
     public void setCategory(String category) {
         this.category = category;
     }
+
+    @JsonProperty("shop")
+    public void setShop(String shop) {
+        this.shop = shop;
+    }
+
+    @JsonProperty("user")
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    @JsonProperty("qty")
+    public void setQty(String qty) {
+        this.qty = qty;
+    }
+
+    @JsonProperty("price")
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    @JsonProperty("condition")
+    public void setCondition(String condition) {
+        this.condition = condition;
+    }
+
 }

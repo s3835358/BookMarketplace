@@ -1,10 +1,13 @@
 package com.rmit.sept.bk_loginservices.Repositories;
 
+import com.rmit.sept.bk_loginservices.model.Seller;
 import com.rmit.sept.bk_loginservices.model.User;
+import com.rmit.sept.bk_loginservices.mapper.SellerMapper;
 import com.rmit.sept.bk_loginservices.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Repository
@@ -102,5 +105,13 @@ public class UserRepository {
         return jdbcTemplate.update(query, abn, busName, id);
     }
 
+    public List<Seller> getSellers() {
+
+        String query = "SELECT `id`, `fullName` FROM `users`;";
+
+        List<Seller> sellers = jdbcTemplate.query(query, new SellerMapper());
+        
+        return sellers;
+    }
 
 }

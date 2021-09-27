@@ -66,7 +66,19 @@ export const Header = () => {
                                     </li>
                                 </ul>
                                 :
-                                <div></div>
+                                <div>
+                                    {store.getState().security.user.userType.match("shop")?
+                                        <ul className="navbar-nav mr-auto" >
+                                            <li className="nav-item" style={{display:"flex", flexDirection:"row"}}>
+                                                <a className="nav-link" href="/addBook">
+                                                    Sell Books
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    :
+                                        <div/>
+                                    }
+                                </div>
                             :
                             <div></div>
                         }

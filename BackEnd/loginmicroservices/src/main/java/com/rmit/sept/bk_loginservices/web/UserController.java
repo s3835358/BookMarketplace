@@ -1,6 +1,7 @@
 package com.rmit.sept.bk_loginservices.web;
 
 
+import com.rmit.sept.bk_loginservices.model.Seller;
 import com.rmit.sept.bk_loginservices.model.User;
 import com.rmit.sept.bk_loginservices.payload.JWTLoginSucessReponse;
 import com.rmit.sept.bk_loginservices.payload.LoginRequest;
@@ -20,6 +21,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -205,6 +207,14 @@ public class UserController {
         } 
 
         return responseEntity;
+    }
+
+    @GetMapping(value = "/getSellers", produces = "application/json")
+    public List<Seller> getSellers() {
+        
+        List<Seller> sellers = userRepository.getSellers();
+        
+        return sellers;
     }
 
 }
