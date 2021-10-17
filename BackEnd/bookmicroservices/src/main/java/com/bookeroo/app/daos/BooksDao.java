@@ -68,4 +68,8 @@ public class BooksDao {
         return book;
     }
 
+    public Boolean bookSold() {
+        return false;
+    }
+
 }

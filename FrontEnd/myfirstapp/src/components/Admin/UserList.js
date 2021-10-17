@@ -1,8 +1,7 @@
-import React, {useState, useEffect, useMemo} from "react";
+import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import store from "../../store";
 import {useUserContext} from '../UserManagement/UserContext';
-import Table from '../Layout/table';
 import Register from "../UserManagement/Register";
 
 
@@ -13,7 +12,6 @@ export const UserList = props => {
     const [logged, setLogged] = useState(false);
     const {user} = useUserContext();
     const [users, setUsers] = useState([]);
-    const [selected, setSelected] = useState([]);
     const [edit, setEdit] = useState(EMPTY_USER);
     const [refresh, setRefresh] = useState();
 
@@ -42,19 +40,6 @@ export const UserList = props => {
       });
       
     }, [user, refresh]);
-
-    const userCols = useMemo(
-      () => [
-        {Header: 'Name', accessor: 'fullName',},
-        {Header: 'Username', accessor: 'username',},
-        {Header: 'User Type', accessor: 'userType',},
-        {Header: 'Phone', accessor: 'phone',},
-        {Header: 'Address', accessor: 'address',},
-        {Header: 'ABN', accessor: 'abn',},
-        {Header: 'Business', accessor: 'busName',},
-      ],
-      []
-    ); 
 
     function block(id) {
       
@@ -91,7 +76,7 @@ export const UserList = props => {
                             alignItems:"center", justifyContent:"center", margin:"1%", width:"50%"}}>
                               
                               <div className = "user" key = {user.id} style={{textAlign:"center"}} 
-                              onClick={e=> {setSelected(user)}}>User: <b>{user.fullName}</b>, type: {user.userType}</div>
+                              >User: <b>{user.fullName}</b>, type: {user.userType}</div>
 
                               <div style={{display:"flex", flexDirection:"row"}}>
 

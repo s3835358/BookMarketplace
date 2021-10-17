@@ -1,10 +1,7 @@
 import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import store from "../../store";
-import Select from 'react-select';
 import {useUserContext} from '../UserManagement/UserContext';
-import { customStyles } from "../Layout/selectStyle";
-
 
 export const BlackList = props => {
     

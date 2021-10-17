@@ -30,7 +30,7 @@ export const Header = () => {
                         
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/catalogue">
+                                <a className="nav-link" href="/catalogue/:book">
                                     Catalogue
                                 </a>
                             </li>
@@ -88,6 +88,11 @@ export const Header = () => {
                             {logged?
                                 <div style = {{display:"flex", flexDirection:"row"}}>
                                     <li className="nav-item">
+                                        <a className="nav-link" href="/transactionHistory">
+                                            TransactionHistory
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
                                         <a className="nav-link" href="/settings">
                                             Settings
                                         </a>
@@ -103,12 +108,12 @@ export const Header = () => {
                                 
                                 <div style = {{display:"flex", flexDirection:"row", color:"white"}}>
                                     <li className="nav-item">
-                                        <a className="nav-link " href="register">
+                                        <a className="nav-link " href="/register">
                                             Sign Up
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="login">
+                                        <a className="nav-link" href="/login">
                                             Login
                                         </a>
                                     </li>   

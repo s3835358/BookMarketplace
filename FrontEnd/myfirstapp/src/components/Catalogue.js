@@ -1,9 +1,10 @@
 import React, { useEffect, useState} from 'react'
 import axios from 'axios';
+import Book from './Book'
 import "./Catalogue.css"
 
 
-function Catalogue() {
+export const Catalogue = props => {
 
     const [catalogue, setCatalogue] = useState(["Loading..."]);
     const [query, setQuery] = useState("");
@@ -12,20 +13,28 @@ function Catalogue() {
     const [sellers, setSellers] = useState([]);
 
     useEffect(() => {
-        
-        axios.get("https://salty-caverns-05675.herokuapp.com/books/getBooks").then((response) => {         
-
-            setCatalogue(response.data);
-            console.log(response.data);
-        });
-
         axios.get("https://sept-login-service.herokuapp.com/api/users/getSellers").then((response) => {         
 
             setSellers(response.data);
             console.log(response.data);
         });
+
+        axios.get("https://salty-caverns-05675.herokuapp.com/books/getBooks").then((response) => {         
+
+            setCatalogue(response.data);
+            console.log(response.data);
+            response.data.forEach((book) => {
+                if(book.id == props.match.params.book) {
+                    bookClicked(book)
+                }
+            }) 
+        });
+
         
-    }, []);
+        
+        
+
+    }, [props.match.params.book]);
 
     function bookClicked(book) {
         setSelected(book);
@@ -34,11 +43,13 @@ function Catalogue() {
 
     function getSeller(seller) {
         var name = "";
+        console.log(seller)
         for(var i = 0; i < sellers.length; i++) {
             if(sellers[i].id == seller) {
                 name = sellers[i].fullName;
             }
         }
+        
         return name;
     }
     // Search method based on tutorial https://www.youtube.com/watch?v=mZvKPtH9Fzo
@@ -58,14 +69,7 @@ function Catalogue() {
                         Back to Catalogue
                     </div>
 
-                    <div style={{paddingLeft:"25%", justifyContent:"center"}}>
-                        <div>Title: {selected.title}</div>
-                        <div>Author: {selected.author}</div>
-                        <div>Publisher: {selected.publisher}</div>
-                        <div>ISBN: {selected.isbn}</div>
-                        <div>Year: {selected.year}</div>
-                        <div>Category: {selected.category}</div>
-                    </div>
+                    <Book book = {selected}></Book>
 
                 </div>
             :

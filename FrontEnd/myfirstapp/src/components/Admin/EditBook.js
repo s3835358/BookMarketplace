@@ -19,7 +19,12 @@ export const EditBook = props => {
         publisher:"",
         isbn:"",
         year:"",
-        category:""  
+        category:"",
+        condition: "",
+        qty: "",
+        price: "",
+        shop: "",
+        user: ""
     });
 
 
@@ -39,7 +44,12 @@ export const EditBook = props => {
                 publisher: res[i].publisher,
                 isbn: res[i].isbn,
                 year: res[i].year,
-                category: res[i].category
+                category: res[i].category,
+                condition: res[i].condition,
+                qty: res[i].qty,
+                price: res[i].price,
+                shop: res[i].shop,
+                user: res[i].user
               });
             } 
             
@@ -76,7 +86,12 @@ export const EditBook = props => {
           "publisher": bookSelected.publisher,
           "isbn": bookSelected.isbn,
           "year": String(bookSelected.year),
-          "category": bookSelected.category
+          "category": bookSelected.category,
+          "condition": bookSelected.condition,
+          "qty": String(bookSelected.qty),
+          "price":String(bookSelected.price),
+          "shop": bookSelected.shop,
+          "user": bookSelected.user,
       }
       console.log(req);
       // Post request to register account
@@ -113,7 +128,12 @@ export const EditBook = props => {
                       publisher: opt.publisher,
                       isbn: opt.isbn,
                       year: opt.year,
-                      category: opt.category
+                      category: opt.category,
+                      condition: opt.condition,
+                      qty: opt.qty,
+                      price: opt.price,
+                      shop: opt.shop,
+                      user: opt.user
                     })}
                   />
                   <div className="form-group">
@@ -180,6 +200,65 @@ export const EditBook = props => {
                       name="category"
                       value={bookSelected.category}
                       onChange={(ev) => setBookSelected({...bookSelected, category: ev.target.value})}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Condition"
+                      name="condition"
+                      value={bookSelected.condition}
+                      onChange={(ev) => setBookSelected({...bookSelected, condition: ev.target.value})}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="number"
+                      min="0"
+                      max="100"
+                      className="form-control form-control-lg"
+                      placeholder="Qty"
+                      name="qty"
+                      value={bookSelected.qty}
+                      onChange={(ev) => setBookSelected({...bookSelected, qty: ev.target.value})}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="number"
+                      min="1"
+                      max="1000"
+                      className="form-control form-control-lg"
+                      placeholder="Price"
+                      name="price"
+                      value={bookSelected.price}
+                      onChange={(ev) => setBookSelected({...bookSelected, price: ev.target.value})}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Seller ID (If Shop)"
+                      name="shop"
+                      value={bookSelected.shop}
+                      onChange={(ev) => setBookSelected({...bookSelected, shop: ev.target.value})}
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Seller ID (If Public User)"
+                      name="user"
+                      value={bookSelected.user}
+                      onChange={(ev) => setBookSelected({...bookSelected, user: ev.target.value})}
                     />
                   </div>
 
