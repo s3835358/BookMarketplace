@@ -1,11 +1,16 @@
 package com.sept.orders.daos;
 
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 import org.springframework.beans.factory.annotation.Autowired;
-
+import java.sql.Timestamp;
 import java.util.List;
-
+import java.sql.PreparedStatement;
+import java.sql.Connection;
+import java.sql.SQLException;
+import org.springframework.jdbc.core.PreparedStatementCreator;
 import com.sept.orders.models.Order;
 import com.sept.orders.mapper.OrderMapper;
 
@@ -38,13 +43,38 @@ public class OrdersDao {
 
     public Order saveOrder(Order order) {
         // Adds book to database
-        String query = "insert into `order`(`seller_id`,`buyer_id`,`qty`,`price`, `book_id`, `book_title`)";
-        query += "values(?, ?, ?, ?, ?, ?);";
-        jdbcTemplate.update(query, order.getSellerId(), order.getBuyerId(), order.getQty(),
-                order.getPrice(), order.getBookId(), order.getBookTitle());
+        String query = "insert into `order`(`seller_id`,`buyer_id`,`qty`,`price`, `book_id`, `book_title`, `ordered_at`)";
+        query += "values(?, ?, ?, ?, ?, ?, ?);";
+        final String stmt = query;
 
-        return null;
+        Timestamp time = new Timestamp(System.currentTimeMillis());
+        KeyHolder key = new GeneratedKeyHolder();
+
+        // Based on https://www.concretepage.com/spring/how-to-get-auto-generated-id-in-spring-jdbc
+
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement pst =
+                    con.prepareStatement(stmt, new String[] {"id"});
+                    pst.setLong(1, order.getSellerId());
+                    pst.setLong(2, order.getBuyerId());
+                    pst.setString(3, order.getQty());
+                    pst.setString(4, order.getPrice());
+                    pst.setLong(5, order.getBookId());
+                    pst.setString(6, order.getBookTitle());
+                    pst.setTimestamp(7, time);
+
+                return pst;
+            }
+        },
+        key);
+        Long id = key.getKey().longValue();
+        String query2 = "select * from `order` where `id`=?;";
+        return jdbcTemplate.queryForObject(query2, new OrderMapper(), id);
     }
 
+    public List<Order> getRecent() {
+        return null;
+    }
 
 }

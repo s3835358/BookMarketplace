@@ -2,6 +2,8 @@ package com.sept.orders.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Order {
 
@@ -19,6 +21,8 @@ public class Order {
     private long book_id;
     @JsonProperty("book_title")
     private String book_title;
+    @JsonProperty("ordered_at")
+    private Timestamp ordered_at;
 
     public Order() {
     }
@@ -53,6 +57,11 @@ public class Order {
     @JsonProperty("book_title")
     public String getBookTitle() {
         return book_title;
+    }
+
+    @JsonProperty("ordered_at")
+    public Timestamp getOrderedAt() {
+        return ordered_at;
     }
 
     @JsonProperty("id")
@@ -90,4 +99,8 @@ public class Order {
         this.book_title = book_title;
     }
 
+    @JsonProperty("ordered_at")
+    public void setOrderedAt(Timestamp ordered_at) {
+        this.ordered_at = ordered_at;
+    }
 }

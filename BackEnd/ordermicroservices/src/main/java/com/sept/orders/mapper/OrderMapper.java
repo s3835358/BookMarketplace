@@ -19,6 +19,7 @@ public class OrderMapper implements RowMapper<Order>{
         order.setPrice(rs.getString("price"));
         order.setBookId(rs.getLong("book_id"));
         order.setBookTitle(rs.getString("book_title"));
+        order.setOrderedAt(rs.getTimestamp("ordered_at"));
         return order;
     }
 }
