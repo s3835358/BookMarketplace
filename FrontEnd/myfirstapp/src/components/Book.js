@@ -42,9 +42,30 @@ export const Book = props => {
                 alert("Incorrect values");
             })
 
+            var req2 = {
+                "id": selected.id,
+                "title": selected.title,
+                "author": selected.author,
+                "publisher": selected.publisher,
+                "isbn": selected.isbn,
+                "year": String(selected.year),
+                "category": selected.category,
+                "condition": selected.condition,
+                "qty": selected.qty,
+                "price":selected.price,
+                "shop": selected.shop,
+                "user": selected.user,
+            }
+
+            console.log(req2)
+            // Recudes book quantity by one when sold
+            axios.post(`https://salty-caverns-05675.herokuapp.com/books/bookSold`,req2).then(res => {
+                console.log(res)            
+            }).catch(err =>{
+                alert("Incorrect values");
+            })
+
             alert("Payment succeeded")
-            //  create order
-            //  reduce qty
         } else {
             alert("Payment failed")
         }

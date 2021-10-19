@@ -75,7 +75,10 @@ public class BooksController {
 		return booksDao.getBooks();
 	}
 
-
-	//website.com/books/getTitles
+	@PostMapping(value = "/bookSold", consumes ="application/json", produces = "application/json")
+	public Book bookSold(@RequestBody Book book) {
+		
+		return booksDao.bookSold(book);
+	}
 	
 }

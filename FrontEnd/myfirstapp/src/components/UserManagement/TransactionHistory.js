@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from "react";
 
-import Table from './Layout/table';
+import Table from '../Layout/table';
 
 export const TransactionHistory = props => {
     

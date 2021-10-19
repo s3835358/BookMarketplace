@@ -9,6 +9,7 @@ import java.util.List;
 import com.bookeroo.app.models.Book;
 import com.bookeroo.mapper.BookMapper;
 
+
 /*  
  *  @Repository instructs spring boot that this class is a repository or
  *  is intended to handle exceptions with behaviour similar to a repo.
@@ -34,12 +35,14 @@ public class BooksDao {
         return jdbcTemplate.queryForList(query, String.class);
     }
 
+    // Returns a list of every book in the db
     public List<Book> getBooks() {
         String query = "select * from books;";
         
         return jdbcTemplate.query(query, new BookMapper());
     }
 
+    // Add book
     public Book saveBook(Book book) {
         // Adds book to database
         String query = "insert into `books`(`id`,`title`,`author`,`publisher`,`isbn`,";
@@ -54,6 +57,7 @@ public class BooksDao {
         return jdbcTemplate.queryForObject(query2, new BookMapper(), book.getTitle());
     }
 
+    // Edit book
     public Book updateBook(Book book) {
         String query = "update `books` set `id` = ?, `title` = ?, `author` = ?, `publisher` = ?,";
         query+= "`isbn` = ?,`year` = ?, `category` = ?, `shop` = ?, `qty` = ?, `price` = ?, `condition` = ?, `user` = ?  where `id` = ?;";
@@ -61,15 +65,18 @@ public class BooksDao {
         jdbcTemplate.update(query, book.getId(), book.getTitle(), book.getAuthor(), book.getpublisher(), 
         book.getIsbn(), book.getYear(), book.getCategory(), book.getShop(), book.getQty(), book.getPrice(),
         book.getCondition(), book.getUser(), book.getId());
-
-        // Asks database to return the book we just added so that we may have the correct id
-        // Since the id is autoincremented by the database
        
         return book;
     }
 
-    public Boolean bookSold() {
-        return false;
+    // Decrement quantity when book is sold
+    public Book bookSold(Book book) {
+        String query = "update `books` set `qty` = ? where `id` = ?;";
+        int qty = Integer.parseInt(book.getQty()) - 1;
+        jdbcTemplate.update(query, qty, book.getId());
+
+        String query2 = "SELECT * FROM `books` WHERE `id`= ?;";
+        return jdbcTemplate.queryForObject(query2, new BookMapper(), book.getId());
     }
 
 }

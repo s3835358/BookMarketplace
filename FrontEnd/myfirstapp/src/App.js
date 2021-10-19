@@ -26,7 +26,8 @@ import setJWTToken from "./securityUtils/setJWTToken";
 import { SET_CURRENT_USER } from "./actions/types";
 import { logout } from "./actions/securityActions";
 import {UserContextProvider} from './components/UserManagement/UserContext';
-import TransactionHistory from "./components/TransactionHistory";
+import TransactionHistory from "./components/UserManagement/TransactionHistory";
+import CurrentOrders from "./components/UserManagement/CurrentOrders";
 
 
 const jwtToken = localStorage.jwtToken;
@@ -86,6 +87,7 @@ export const App = () => {
               <Route exact path="/blackList" component={BlackList} />
               <Route exact path="/inbox" component={Inbox} />
               <Route exact path="/transactionHistory" component={TransactionHistory} />
+              <Route exact path="/currentOrders" component={CurrentOrders} />
               <Route exact path="/settings" component={Settings} />
             </Switch>
           </div>

@@ -217,4 +217,18 @@ public class UserController {
         return sellers;
     }
 
+    @PostMapping(value = "/getAll", consumes ="application/json", produces = "application/json")
+    public List<User> getAll(@RequestBody Token tokenBody){
+        
+        List<User> users = null;
+        String token = tokenBody.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+    
+        if(tokenProvider.validateToken(token) && tokenProvider.isAdmin(token)) {
+            users = userRepository.getAll();
+        }
+
+        return users;
+    }
+
 }

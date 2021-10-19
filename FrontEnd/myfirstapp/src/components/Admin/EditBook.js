@@ -107,7 +107,7 @@ export const EditBook = props => {
           alert("Incorrect values");
       })
       
-  };
+    };
 
     return (
         <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>

@@ -89,7 +89,12 @@ export const Header = () => {
                                 <div style = {{display:"flex", flexDirection:"row"}}>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/transactionHistory">
-                                            TransactionHistory
+                                            Transaction History
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/currentOrders">
+                                            Current Orders
                                         </a>
                                     </li>
                                     <li className="nav-item">
