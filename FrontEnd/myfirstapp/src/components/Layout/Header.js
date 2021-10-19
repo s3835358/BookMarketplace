@@ -17,7 +17,7 @@ export const Header = () => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
+            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black", fontSize:"13pt" }}>
                 <div className="container">
                     <a className="navbar-brand" href="/">
                         BOOKEROO

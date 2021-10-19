@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.bookeroo.app.models.Book;
+import com.bookeroo.app.models.Review;
 import com.bookeroo.app.daos.BooksDao;
 
 import java.util.List;
@@ -80,5 +81,25 @@ public class BooksController {
 		
 		return booksDao.bookSold(book);
 	}
+
+	@PostMapping(value = "/addReview", consumes ="application/json", produces = "application/json")
+	public ResponseEntity<?> addReview(@RequestBody Review review) {
+		
+		ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+
+        if(booksDao.addReview(review)) {
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        }
+
+		return responseEntity;
+	}
+
+	@PostMapping(value = "/getReviews", consumes ="application/json", produces = "application/json")
+    public List<Review> getReviews(@RequestBody Book book) {
+        
+        Long id = book.getId();
+
+        return booksDao.getReviews(id);
+    }
 	
 }

@@ -4,7 +4,7 @@ import store from "../../store";
 import Select from 'react-select';
 import {useUserContext} from '../UserManagement/UserContext';
 import { customStyles } from "../Layout/selectStyle";
-
+import '../Background.css'
 
 export const EditBook = props => {
     
@@ -110,13 +110,15 @@ export const EditBook = props => {
     };
 
     return (
-        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+        <div className="background" style ={{alignItems:"center", display:"flex", 
+        flexDirection:"column", justifyContent:"center"}}>
                     
           {
             logged && 'userType' in store.getState().security.user?
               store.getState().security.user.userType.match("admin")?
                 
-                <div className ="editBook" style ={{width:"30%"}}>
+                <div className ="editBook" style ={{paddingTop:"5%", alignText:"center", 
+                alignItems:"center",width:"30%", justifyContent:"center"}}>
                   <Select 
                     styles={customStyles}
                     placeholder="Select Book to edit"
@@ -261,8 +263,14 @@ export const EditBook = props => {
                       onChange={(ev) => setBookSelected({...bookSelected, user: ev.target.value})}
                     />
                   </div>
-
-                  <div type="button" onClick={editSubmit} className="btn btn-info btn-block mt-4">Submit edits to Book</div>
+                  
+                  <div style={{paddingLeft:"25%", paddingBottom:"5%"}}>
+                    <div type="button" 
+                    onClick={editSubmit} 
+                    className="btn btn-info btn-block mt-4"
+                    >Submit edits to Book
+                    </div>
+                  </div>
                 </div>
                   
               :

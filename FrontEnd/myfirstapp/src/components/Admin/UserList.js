@@ -3,7 +3,7 @@ import axios from 'axios';
 import store from "../../store";
 import {useUserContext} from '../UserManagement/UserContext';
 import Register from "../UserManagement/Register";
-
+import '../Background.css'
 
 export const UserList = props => {
     
@@ -56,7 +56,7 @@ export const UserList = props => {
     
 
     return (
-        <div >
+        <div className="background2">
                     
           {
             logged && 'userType' in store.getState().security.user?
@@ -64,7 +64,9 @@ export const UserList = props => {
                 
                   <div style ={{width:"100%", display:"flex", flexDirection:"column", justifyContent:"center"}}>
                     
-                    <a className="btn btn-info btn-block mt-4" href="register" style ={{width:"15%", marginLeft:"41%"}}>
+                    <a className="btn btn-info btn-block mt-4" href="register" 
+                    style ={{color:"white", backgroundColor:"black", 
+                    borderColor:"black",width:"15%", marginLeft:"41%"}}>
                         Add User (inc Admin)
                     </a>
 
@@ -72,7 +74,8 @@ export const UserList = props => {
                       {users.map((user, i) =>{
                           return (
 
-                            <div style={{display:"flex", flexDirection:"column", border:"2px groove black", borderRadius: "10px", 
+                            <div style={{display:"flex", flexDirection:"column", backgroundColor:"#edf6f9",
+                            border:"2px groove black", borderRadius: "10px", 
                             alignItems:"center", justifyContent:"center", margin:"1%", width:"50%"}}>
                               
                               <div className = "user" key = {user.id} style={{textAlign:"center"}} 
@@ -82,11 +85,13 @@ export const UserList = props => {
 
                                 <div className="btn btn-info btn-block mt-4" onClick={e=> 
                                 {edit == user.id? setEdit(EMPTY_USER) : setEdit(user.id)}}
-                                type ="button" style={{margin:"0% 0% 5% 0%"}}>Edit</div>
+                                type ="button" style={{color:"white", backgroundColor:"black", 
+                                borderColor:"black", margin:"0% 0% 5% 0%"}}>Edit</div>
 
                                 <div className="btn btn-info btn-block mt-4" onClick={e=> 
                                 {block(user.id)}}
-                                type ="button" style={{margin:"0% 0% 5% 5%"}}>Block</div>
+                                type ="button" style={{color:"white", backgroundColor:"black", 
+                                borderColor:"black", margin:"0% 0% 5% 5%"}}>Block</div>
 
                               </div>
                               {edit == user.id?

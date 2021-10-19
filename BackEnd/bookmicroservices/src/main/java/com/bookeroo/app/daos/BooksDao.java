@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 
 import com.bookeroo.app.models.Book;
+import com.bookeroo.app.models.Review;
 import com.bookeroo.mapper.BookMapper;
+import com.bookeroo.mapper.ReviewMapper;
 
 
 /*  
@@ -17,6 +19,8 @@ import com.bookeroo.mapper.BookMapper;
 @Repository
 public class BooksDao {
     
+    final int ADDED = 1;
+
     /*
      *  Autowiring instructs spring to use database properties in 
      *  resources/application.properties file to 
@@ -77,6 +81,25 @@ public class BooksDao {
 
         String query2 = "SELECT * FROM `books` WHERE `id`= ?;";
         return jdbcTemplate.queryForObject(query2, new BookMapper(), book.getId());
+    }
+
+    public boolean addReview(Review review) {
+        
+        String query = "insert into `reviews`(`book_id`,`user_id`,`content`, `user_name`) values(?, ?, ?,?);";
+        boolean updated = false;
+
+        if(jdbcTemplate.update(query, review.getBookId(), review.getUserId(), review.getContent(), review.getUserName()) == ADDED) {
+            updated = true;
+        }
+        
+        return updated;
+    }
+
+    public List<Review> getReviews(Long book_id) {
+
+        String query1 = "SELECT * FROM `reviews` WHERE `book_id`= ?;";
+        
+        return jdbcTemplate.query(query1, new ReviewMapper(), book_id);
     }
 
 }

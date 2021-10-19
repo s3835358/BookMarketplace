@@ -5,6 +5,7 @@ import store from '../../store';
 import {useUserContext} from './UserContext';
 import Table from '../Layout/table';
 import { customStyles } from "../Layout/selectStyle";
+import '../Background.css';
 
 export const CurrentOrders = props => {
     
@@ -101,7 +102,8 @@ export const CurrentOrders = props => {
     };
 
     return (
-        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+        <div className="background" style ={{alignItems:"center", 
+        display:"flex", flexDirection:"column", justifyContent:"center"}}>
             {
             logged && 'userType' in store.getState().security.user?     
                 <div>
@@ -116,8 +118,12 @@ export const CurrentOrders = props => {
                             seller_id:opt.seller_id
                         })}
                     />
-                    
-                    <div type="button" onClick={cancelOrder} className="btn btn-info btn-block mt-4">Cancel Order</div>
+                    <div style={{paddingLeft:"35%"}}>
+                        <div type="button" onClick={cancelOrder} 
+                        className="btn btn-info btn-block mt-4"
+                        style={{backgroundColor:"black", color:"white",
+                        borderColor:"black"}}>Cancel Order</div>
+                    </div>
 
                     <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
                         <Table columns={orderCols} data={orders} />

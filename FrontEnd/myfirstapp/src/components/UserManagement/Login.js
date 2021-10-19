@@ -6,6 +6,7 @@ import { useUserContext } from "./UserContext";
 import jwt_decode from "jwt-decode";
 import store from "../../store";
 import {SET_CURRENT_USER} from "../../actions/types";
+import '../Background.css'
 
 export const Login = props => {
   
@@ -63,34 +64,45 @@ export const Login = props => {
   }
 
   return (
-    <div className="login">
-      <div className="container">
-        <div className="row">
-          <div className="col-md-8 m-auto">
-            <h1 className="display-4 text-center">Log In</h1>
+    <div className="background4" >
+      <div className="login">
+        <div className="container">
+          <div className="row" >
             
-            <div className="form-group">
-              <input
-                type="text"
-                className={classnames("form-control form-control-lg")}
-                placeholder="Email Address"
-                name="username"
-                value={username}
-                onChange={usernameChange}
-              />
+            <div style={{paddingLeft:"20%",paddingTop:"14%", display:"flex",
+            width:"80%", flexDirection:"column", justifyContent:"center",alignItems:"center"}}>
+              
+              <div style={{backgroundColor:"white", borderRadius:"10px", 
+              padding:"0.5% 5% 0.5% 5%"}}>
+                <h1 className="display-4 text-center" >Log In</h1>
+                <p/>
+              </div>
+              <p/>
+              <div className="form-group">
+                <input
+                  type="text"
+                  className={classnames("form-control form-control-lg")}
+                  placeholder="Email Address"
+                  name="username"
+                  value={username}
+                  onChange={usernameChange}
+                />
+              </div>
+              <div className="form-group">
+                <input
+                  type="password"
+                  className={classnames("form-control form-control-lg")}
+                  placeholder="Password"
+                  name="password"
+                  value={password}
+                  onChange={pwordChange}
+                />
+              </div>
+              <input type="submit" onClick={handleSubmit}  style={{backgroundColor:"black", 
+              borderColor:"black",color:"white"}} 
+              className="btn btn-info btn-block mt-4" />
+              
             </div>
-            <div className="form-group">
-              <input
-                type="password"
-                className={classnames("form-control form-control-lg")}
-                placeholder="Password"
-                name="password"
-                value={password}
-                onChange={pwordChange}
-              />
-            </div>
-            <input type="submit" onClick={handleSubmit} className="btn btn-info btn-block mt-4" />
-            
           </div>
         </div>
       </div>

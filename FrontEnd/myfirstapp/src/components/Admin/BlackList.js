@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import axios from 'axios';
 import store from "../../store";
 import {useUserContext} from '../UserManagement/UserContext';
+import '../Background.css'
 
 export const BlackList = props => {
     
@@ -39,7 +40,7 @@ export const BlackList = props => {
     
     
     return (
-      <div >
+      <div className="background2">
                     
         {
           logged && 'userType' in store.getState().security.user?
@@ -52,7 +53,8 @@ export const BlackList = props => {
                     {users.map((user, i) =>{
                         return (
 
-                          <div style={{display:"flex", flexDirection:"column", border:"2px groove black", borderRadius: "10px", 
+                          <div style={{display:"flex", flexDirection:"column", 
+                          border:"2px groove black", borderRadius: "10px", backgroundColor:"white",
                           alignItems:"center", justifyContent:"center", margin:"1%", width:"50%"}}>
                             
                             <div className = "user" key = {user.id} style={{textAlign:"center"}} >

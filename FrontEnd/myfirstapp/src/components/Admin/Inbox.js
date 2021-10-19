@@ -5,7 +5,7 @@ import {useUserContext} from '../UserManagement/UserContext';
 import Table from '../Layout/table';
 import { customStyles } from "../Layout/selectStyle";
 import Select from 'react-select';
-
+import '../Background.css'
 
 export const Inbox = props => {
     
@@ -113,7 +113,7 @@ export const Inbox = props => {
     ); 
     
     return (
-        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+        <div className="background3" style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
                     
           {
             logged && 'userType' in store.getState().security.user?
@@ -130,18 +130,21 @@ export const Inbox = props => {
                           onChange={opt => setShopSelected(opt)}
                       />
                       <br/>
-                      <input
-                          className="Admin-Submit"
-                          type="submit"
-                          onClick={approve}
-                          value="APPROVE"
-                      />
-                      <input
-                          className="Admin-Submit"
-                          type="submit"
-                          onClick={reject}
-                          value="REJECT"
-                      />
+                      <div style={{paddingLeft:"32%"}}>
+                        <input
+                            className="Admin-Submit"
+                            type="submit"
+                            
+                            onClick={approve}
+                            value="APPROVE"
+                        />
+                        <input
+                            className="Admin-Submit"
+                            type="submit"
+                            onClick={reject}
+                            value="REJECT"
+                        />
+                      </div>
                     </div>
                   </div>
                   

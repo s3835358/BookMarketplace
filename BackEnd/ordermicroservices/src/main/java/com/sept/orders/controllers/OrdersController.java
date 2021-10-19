@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.net.http.HttpRequest;
 import java.util.List;
 import com.sept.orders.daos.OrdersDao;
 import com.sept.orders.models.Order;

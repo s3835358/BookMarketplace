@@ -1,6 +1,7 @@
 import React, {useState, useMemo} from "react";
 
 import Table from '../Layout/table';
+import '../Background.css';
 
 export const TransactionHistory = props => {
     
@@ -19,14 +20,15 @@ export const TransactionHistory = props => {
     ); 
     
     return (
-        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+        <div className="background4" style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
                     
           
                 
-            <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
+            <div style ={{alignItems:"center", display:"flex", 
+            flexDirection:"column", justifyContent:"center"}}>
                 <Table columns={orderCols} data={orders} />
                 <div type = "button" className="btn btn-info btn-block mt-4"> Download</div>
-                <p>Transactions as CSV</p>
+                <p style={{color:"white"}}>Transactions as CSV</p>
             </div>
                   
             

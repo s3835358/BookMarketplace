@@ -10,11 +10,21 @@ export const Book = props => {
 
     const [selected, setSelected] = useState([]);
     const [cost, setCost] = useState(1);
-    
+    const [reviews, setReviews] = useState([]); 
+    const [bookReview, setBookReview] = useState(""); 
 
     useEffect(() => {
         setSelected(props.book)
         getPrice()
+        axios.post(`https://salty-caverns-05675.herokuapp.com/books/getReviews`,props.book).then(res => {
+            
+            setReviews(res.data);
+            console.log(res.data);
+
+        }).catch(err =>{
+            alert("Incorrect values");
+        })
+
     }, [props.book, selected]);
 
     function isSuccess(result) {
@@ -84,32 +94,111 @@ export const Book = props => {
         }
     }   
 
+    function submitReview(){
+        var req = {
+            "user_id": store.getState().security.user.id,
+            "book_id": selected.id,
+            "content": bookReview,
+            "user_name": store.getState().security.user.fullName
+        }
+        console.log(req)
+        axios.post(`https://salty-caverns-05675.herokuapp.com/books/addReview`,req).then(res => {
+            console.log(res)            
+        }).catch(err =>{
+            alert("Incorrect values");
+        })
+    }
+
     return (
-        <div>  
-            <div style={{paddingTop:"3%", paddingLeft:"45%", justifyContent:"center"}}>
-                <Popup modal trigger={<div className="btn btn-info btn-block mt-4" type ="button">Share</div>} 
-                position="right center">
-                    {close => <PopupContent close={close} />}
-                    <div>Share URL: "{window.location.href.replace(':book',props.book.id)}"</div>
-                </Popup>
-            </div>
+        <div style={{ width:"50%", backgroundColor:"#f8f9fa"}}>  
+            
+            <div style={{display:"flex", flexDirection:"row"}}>
+                
+                <div style={{paddingLeft:"5%",paddingRight:"5%", paddingTop:"3%", textAlign:"center"}}>
+                    Add Review
+                    <p/>
+                    <div className="form-group">
+                        <input
+                        type="text"
+                        className="form-control form-control-lg"
+                        placeholder="Enter your review"
+                        name="review"
+                        value={bookReview}
+                        onChange={(ev) => setBookReview(ev.target.value)}
+                        />
+                    </div>
 
-            <div style={{paddingLeft:"25%", justifyContent:"center"}}>
-                <div>Title: {selected.title}</div>
-                <div>Author: {selected.author}</div>
-                <div>Publisher: {selected.publisher}</div>
-                <div>ISBN: {selected.isbn}</div>
-                <div>Year: {selected.year}</div>
-                <div>Category: {selected.category}</div>
-            </div>
+                    <div type="button" onClick={submitReview} 
+                    className="btn btn-info btn-block mt-4"
+                    style={{backgroundColor:"black", color:"white",borderColor:"black"}}>
+                    Submit Review
+                    </div>
 
-            <div style={{paddingTop:"3%", paddingLeft:"25%", justifyContent:"center"}}>
-                <PayPal
-                    total={cost}
-                    //history={history}
-                    isSuccess={isSuccess}>
-                </PayPal>
+                    <div style={{justifyContent:"center"}}>
+                        <p></p>
+                        <div>Reviews: </div>
+                        {   
+                        reviews.map((review, i) =>{
+                            var dash = " - "
+                            var usr = "Review by user: "
+                            return (
+                                <div>
+                                    <p/>
+                                    {dash}  
+                                    {review.content}
+                                    
+                                    <p style={{fontSize:"10pt"}}>
+                                    <b>{usr}
+                                    {review.user_name}
+                                    </b>
+                                    </p>
+                                </div>
+                            )
+                        })
+                        }
+                    </div>
+
+                </div>
+
+                <div style={{paddingLeft:"5%", width:"50%", justifyContent:"center", backgroundColor:"#edf6f9"}}>
+                    
+                    <div style={{paddingLeft:"65%", justifyContent:"center"}}>
+                        
+                        <Popup modal trigger={<div className="btn btn-info btn-block mt-1" 
+                        style={{backgroundColor:"black", color:"white",borderColor:"black"}}
+                        type ="button">Share</div>} 
+                        position="right center">
+                            {close => <PopupContent close={close} />}
+                            <div>Share URL: "{window.location.href.replace(':book',props.book.id)}"</div>
+                        </Popup>
+
+                    </div>
+
+                    <p/>
+                    <div>Title: {selected.title}</div>
+                    <div>Author: {selected.author}</div>
+                    <div>Publisher: {selected.publisher}</div>
+                    <div>ISBN: {selected.isbn}</div>
+                    <div>Year: {selected.year}</div>
+                    <div>Category: {selected.category}</div>
+                    
+                    <div style={{paddingTop:"3%", paddingLeft:"5%", justifyContent:"center"}}>
+                        <p/>
+                        <PayPal
+                            total={cost}
+                            //history={history}
+                            isSuccess={isSuccess}>
+                        </PayPal>
+
+                    </div>
+                    <p/>
+                </div>
+                
+
             </div>
+            
+            
+            
         </div>
     )
     

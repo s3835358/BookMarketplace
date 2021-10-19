@@ -4,6 +4,7 @@ import * as PropTypes from 'prop-types'
 import { connect } from "react-redux";
 import { Form, FloatingLabel} from "react-bootstrap";
 import store from "../../store";
+import '../Background.css'
 
 class Register extends Component {
   constructor() {
@@ -82,153 +83,162 @@ class Register extends Component {
      
 
     return (
-      <div className="register">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              
-              {
-                    'userType' in store.getState().security.user?
-
-                      store.getState().security.user.userType.match("admin") && this.state.edit?
+      <div className="background4">
+        <div className="register">
+          <div className="container">
+            <div className="row">
+              <div className="col-md-8 m-auto" style={{paddingTop:"4%"}}>
                 
-                          <div>
-                            <h1 className="display-4 text-center">Edit User</h1>
-                            <p className="lead text-center">Adjust the details</p>
-                          </div>
-                        
-                        :
+                {
+                      'userType' in store.getState().security.user?
 
-                        <div>
-                          <h1 className="display-4 text-center">Add Admin User</h1>
-                          <p className="lead text-center">Create the Account</p>
-                        </div>
-
-                      
-                    :                     
-                      <div>
-                        <h1 className="display-4 text-center">Sign Up</h1>
-                        <p className="lead text-center">Create your Account</p>
-                      </div>
-              }
-              <form onSubmit={this.onSubmit}>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Full Name"
-                    name="fullName"
-                    value={this.state.fullName}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Email Address (Username)"
-                    name="username"
-                    value={this.state.username}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Address"
-                    name="address"
-                    value={this.state.address}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="text"
-                    className="form-control form-control-lg"
-                    placeholder="Phone"
-                    name="phone"
-                    value={this.state.phone}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div>
-                  {
-                    'userType' in store.getState().security.user && !this.state.edit?
-
-                      store.getState().security.user.userType.match("admin")?
-
-                        <div/>
-                      :
-                        <div/>
-                    :
-                      <FloatingLabel label="User Type">
-                        <Form.Select 
-                          size="lg"
-                          style={{height:"10%"}}
-                          name="userType"
-                          value={this.state.userType}
-                          onChange={this.onChange}>
-                          <option hidden></option>
-                          <option value="customer">Customer</option>
-                          <option value="shopOwner">Shop Owner</option>
-                          <option value="publisher">Publisher</option>
-                        </Form.Select>
-                      </FloatingLabel>
-                    
-                  }
-                </div>
-                {this.state.userType.match("shopOwner") || this.state.userType.match("publisher")?
-                  <div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Abn"
-                        name="abn"
-                        value={this.state.abn}
-                        onChange={this.onChange}
-                      />
-                    </div>
-                    <div className="form-group">
-                      <input
-                        type="text"
-                        className="form-control form-control-lg"
-                        placeholder="Business Name"
-                        name="busName"
-                        value={this.state.busName}
-                        onChange={this.onChange}
-                      />
-                    </div>
-                  </div>
+                        store.getState().security.user.userType.match("admin") && this.state.edit?
                   
-                :
-                  <div></div>
+                            <div style={{borderRadius:"10px", display:"flex",
+                            flexDirection:"column",alignItems:"center", backgroundColor:"white"}}>
+
+                              <h1 className="display-4 text-center">Edit User</h1>
+                              <p className="lead text-center">Adjust the details</p>
+                            </div>
+                          
+                          :
+
+                          <div style={{borderRadius:"10px", display:"flex",
+                          flexDirection:"column",alignItems:"center", backgroundColor:"white"}}>
+                            <h1 className="display-4 text-center">Add Admin User</h1>
+                            <p className="lead text-center">Create the Account</p>
+                          </div>
+
+                        
+                      :                     
+                        <div style={{borderRadius:"10px", display:"flex",
+                        flexDirection:"column",alignItems:"center", backgroundColor:"white"}}>
+                          <h1 className="display-4 text-center">Sign Up</h1>
+                          <p className="lead text-center">Create your Account</p>
+                        </div>
                 }
-                
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Password"
-                    name="password"
-                    value={this.state.password}
-                    onChange={this.onChange}
-                  />
-                </div>
-                <div className="form-group">
-                  <input
-                    type="password"
-                    className="form-control form-control-lg"
-                    placeholder="Confirm Password"
-                    name="confirmPassword"
-                    value={this.state.confirmPassword}
-                    onChange={this.onChange}
-                  />
-                </div>
-                
-                <input type="submit" className="btn btn-info btn-block mt-4" />
-              </form>
+                <p/>
+                <form onSubmit={this.onSubmit}>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Full Name"
+                      name="fullName"
+                      value={this.state.fullName}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Email Address (Username)"
+                      name="username"
+                      value={this.state.username}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Address"
+                      name="address"
+                      value={this.state.address}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="text"
+                      className="form-control form-control-lg"
+                      placeholder="Phone"
+                      name="phone"
+                      value={this.state.phone}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div>
+                    {
+                      'userType' in store.getState().security.user && !this.state.edit?
+
+                        store.getState().security.user.userType.match("admin")?
+
+                          <div/>
+                        :
+                          <div/>
+                      :
+                        <FloatingLabel label="User Type">
+                          <Form.Select 
+                            size="lg"
+                            style={{height:"10%"}}
+                            name="userType"
+                            value={this.state.userType}
+                            onChange={this.onChange}>
+                            <option hidden></option>
+                            <option value="customer">Customer</option>
+                            <option value="shopOwner">Shop Owner</option>
+                            <option value="publisher">Publisher</option>
+                          </Form.Select>
+                        </FloatingLabel>
+                      
+                    }
+                  </div>
+                  {this.state.userType.match("shopOwner") || this.state.userType.match("publisher")?
+                    <div>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          placeholder="Abn"
+                          name="abn"
+                          value={this.state.abn}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                      <div className="form-group">
+                        <input
+                          type="text"
+                          className="form-control form-control-lg"
+                          placeholder="Business Name"
+                          name="busName"
+                          value={this.state.busName}
+                          onChange={this.onChange}
+                        />
+                      </div>
+                    </div>
+                    
+                  :
+                    <div></div>
+                  }
+                  
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      className="form-control form-control-lg"
+                      placeholder="Password"
+                      name="password"
+                      value={this.state.password}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div className="form-group">
+                    <input
+                      type="password"
+                      className="form-control form-control-lg"
+                      placeholder="Confirm Password"
+                      name="confirmPassword"
+                      value={this.state.confirmPassword}
+                      onChange={this.onChange}
+                    />
+                  </div>
+                  <div style={{paddingLeft:"43.5%", paddingBottom:"10%"}}>
+                    <input type="submit" className="btn btn-info btn-block mt-4" 
+                    style={{backgroundColor:"black", borderColor:"black",color:"white"}}/>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
         </div>
