@@ -231,4 +231,22 @@ public class UserController {
         return users;
     }
 
+    @PostMapping(value = "/resetPassword", consumes ="application/json", produces = "application/json")
+    public ResponseEntity<?> resetPassword(@RequestBody User user){
+
+                
+        String token = user.getToken();
+        token = token.substring(TOKEN_PREFIX.length());
+
+        ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+        // boolean valid = tokenProvider.validateToken(token) && tokenProvider.isAdmin(token);
+    
+        // if(valid) {
+        userRepository.editUser(user);
+        responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        // } 
+
+        return responseEntity;
+    }
+
 }

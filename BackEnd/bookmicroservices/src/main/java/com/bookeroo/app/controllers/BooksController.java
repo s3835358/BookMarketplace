@@ -7,12 +7,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import com.bookeroo.app.models.Book;
 import com.bookeroo.app.models.Review;
 import com.bookeroo.app.daos.BooksDao;
+import com.bookeroo.app.services.ImageUploadService;
+
+import java.io.IOException;
 
 import java.util.List;
 
@@ -101,5 +105,18 @@ public class BooksController {
 
         return booksDao.getReviews(id);
     }
+
+	@Autowired
+	ImageUploadService imageUploadService;
+
+	@PostMapping(value = "/uploadCover", consumes = "multipart/form-data", produces = "multipart/form-data")
+	public void uploadCover(@RequestParam("cover") MultipartFile cover, @RequestParam("id") long id) throws IllegalStateException, IOException {
+		imageUploadService.uploadCover(cover, id);
+	}
+
+	@PostMapping(value = "/uploadContents", consumes = "multipart/form-data", produces = "multipart/form-data")
+	public void uploadContents(@RequestParam("contents") MultipartFile contents, @RequestParam("id") long id) throws IllegalStateException, IOException {
+		imageUploadService.uploadContents(contents, id);
+	}
 	
 }
