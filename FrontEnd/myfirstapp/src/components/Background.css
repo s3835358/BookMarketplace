@@ -1,0 +1,49 @@
+.background{
+    background-image: url(./images/texture.jpg);
+    background-size:cover;
+    min-height: 90.25vh;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    position: relative;
+    background-position: center;
+    margin-top: -30px;
+    margin-bottom: -50px;
+}
+
+.background2{
+    background-image: url(./images/texture2.jpg);
+    background-size:cover;
+    min-height: 90.25vh;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    position: relative;
+    background-position: center;
+    margin-top: -30px;
+    margin-bottom: -50px;
+}
+.background3{
+    background-image: url(./images/texture3.jpg);
+    background-size:cover;
+    min-height: 90.25vh;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    position: relative;
+    background-position: center;
+    margin-top: -30px;
+    margin-bottom: -50px;
+}
+.background4{
+    background-image: url(./images/texture4.jpg);
+    background-size:cover;
+    min-height: 90.25vh;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(8px + 2vmin);
+    position: relative;
+    background-position: center;
+    margin-top: -30px;
+    margin-bottom: -50px;
+}

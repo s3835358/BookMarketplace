@@ -114,4 +114,13 @@ public class UserRepository {
         return sellers;
     }
 
+    public List<User> getAll() {
+
+        String query = "SELECT * FROM `users`;";
+
+        List<User> users = jdbcTemplate.query(query, new UserMapper());
+        
+        return users;
+    }
+
 }

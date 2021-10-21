@@ -2,7 +2,7 @@ import React, {useState, useEffect, Component} from "react";
 import axios, { post } from 'axios';
 import store from "../../store";
 import {useUserContext} from '../UserManagement/UserContext';
-
+import '../Background.css'
 
 export const AddBook = props => {
 
@@ -105,6 +105,13 @@ reader.onload=(e)=>{
             logged && 'userType' in store.getState().security.user?
 
               <div className ="addBook" style ={{width:"30%"}}>
+        <div className="background" style ={{alignItems:"center", display:"flex", 
+        flexDirection:"column", justifyContent:"center"}}>          
+          {
+            logged && 'userType' in store.getState().security.user?
+                
+              <div className ="addBook" style ={{borderRadius:"10px",backgroundColor:"white",
+              width:"30%", textAlign:"center", alignContent:"center"}}>
                   <h1>{phrase} Book</h1>
 
                   <div className="form-group">
@@ -256,7 +263,12 @@ reader.onload=(e)=>{
                     </div>
                   }
 
-                  <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">{phrase} Book</div>
+                  <div style={{paddingBottom:"5%"}}>
+                    <div type="button" onClick={handleSubmit} 
+                    className="btn btn-info btn-block mt-4"
+                    style={{backgroundColor:"black", borderColor:"black", 
+                    color:"white"}}>{phrase} Book</div>
+                  </div>
               </div>
 
             :

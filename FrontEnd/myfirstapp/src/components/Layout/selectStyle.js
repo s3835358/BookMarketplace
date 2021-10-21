@@ -20,7 +20,7 @@ export const customStyles = {
       color: "black",
       '&:hover': { borderColor: 'gray' },
       boxShadow: "none",
-      backgroundColor: "rgb(233, 234, 236,0.5)",
+      backgroundColor: "rgb(233, 234, 236,1)",
              
   })
 }

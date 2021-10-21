@@ -17,7 +17,7 @@ export const Header = () => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
+            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black", fontSize:"13pt" }}>
                 <div className="container">
                     <a className="navbar-brand" href="/">
                         BOOKEROO
@@ -30,7 +30,7 @@ export const Header = () => {
                         
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/catalogue">
+                                <a className="nav-link" href="/catalogue/:book">
                                     Catalogue
                                 </a>
                             </li>
@@ -91,6 +91,16 @@ export const Header = () => {
                             {logged?
                                 <div style = {{display:"flex", flexDirection:"row"}}>
                                     <li className="nav-item">
+                                        <a className="nav-link" href="/transactionHistory">
+                                            Transaction History
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/currentOrders">
+                                            Current Orders
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
                                         <a className="nav-link" href="/settings">
                                             Settings
                                         </a>
@@ -106,12 +116,12 @@ export const Header = () => {
                                 
                                 <div style = {{display:"flex", flexDirection:"row", color:"white"}}>
                                     <li className="nav-item">
-                                        <a className="nav-link " href="register">
+                                        <a className="nav-link " href="/register">
                                             Sign Up
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="login">
+                                        <a className="nav-link" href="/login">
                                             Login
                                         </a>
                                     </li>   

@@ -1,12 +1,13 @@
 .catalogue{
     display: flex;
     flex-direction: column;
+    
 }
 
 .book{
     background-image: url(./images/empty.jpg);
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    background-size: 100%;
     width: 200px;
     height: 322px;
     align-items: center;
