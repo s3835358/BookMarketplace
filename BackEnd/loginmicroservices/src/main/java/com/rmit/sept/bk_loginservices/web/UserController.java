@@ -6,6 +6,7 @@ import com.rmit.sept.bk_loginservices.model.User;
 import com.rmit.sept.bk_loginservices.payload.JWTLoginSucessReponse;
 import com.rmit.sept.bk_loginservices.payload.LoginRequest;
 import com.rmit.sept.bk_loginservices.payload.RequestResponse;
+import com.rmit.sept.bk_loginservices.payload.ResetRequest;
 import com.rmit.sept.bk_loginservices.payload.Token;
 import com.rmit.sept.bk_loginservices.security.JwtTokenProvider;
 import com.rmit.sept.bk_loginservices.services.MapValidationErrorService;
@@ -232,19 +233,18 @@ public class UserController {
     }
 
     @PostMapping(value = "/resetPassword", consumes ="application/json", produces = "application/json")
-    public ResponseEntity<?> resetPassword(@RequestBody User user){
-
+    public ResponseEntity<?> resetPassword(@RequestBody ResetRequest req){
                 
-        String token = user.getToken();
+        String token = req.getToken();
         token = token.substring(TOKEN_PREFIX.length());
 
         ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
-        // boolean valid = tokenProvider.validateToken(token) && tokenProvider.isAdmin(token);
+        boolean valid = tokenProvider.validateToken(token);
     
-        // if(valid) {
-        userRepository.editUser(user);
-        responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
-        // } 
+        if(valid) {
+            userRepository.resetPassword(tokenProvider.getUserIdFromJWT(token), req.getPassword());
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        } 
 
         return responseEntity;
     }

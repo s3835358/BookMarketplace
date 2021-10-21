@@ -123,4 +123,11 @@ public class UserRepository {
         return users;
     }
 
+    public int resetPassword(long id, String password) {
+
+        String query = "UPDATE `users` SET `password` = ? WHERE `id` = ?;";
+
+        return jdbcTemplate.update(query, password, id);
+    }
+
 }
