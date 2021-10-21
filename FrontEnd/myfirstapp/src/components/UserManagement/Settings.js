@@ -70,8 +70,19 @@ export const Settings = props => {
                     </div>
             }
 
+                <div className = "forgot-password">
+                    <h3> Forgot Password? </h3>
+                    <a className="forgot-password" href="/ForgotPassword">
+                                            Reset Password Here
+                                        </a>
 
-        </div>
+                </div> 
+
+              
+
+
+</div>
+
     );
   
 }

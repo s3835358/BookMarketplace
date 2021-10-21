@@ -6,6 +6,7 @@ import { useUserContext } from "./UserContext";
 import jwt_decode from "jwt-decode";
 import store from "../../store";
 import {SET_CURRENT_USER} from "../../actions/types";
+import { useRouteMatch } from "react-router-dom";
 
 export const Login = props => {
   
@@ -75,7 +76,6 @@ export const Login = props => {
                 className={classnames("form-control form-control-lg")}
                 placeholder="Email Address"
                 name="username"
-                value={username}
                 onChange={usernameChange}
               />
             </div>
@@ -99,3 +99,4 @@ export const Login = props => {
   
 }
 export default Login;
+

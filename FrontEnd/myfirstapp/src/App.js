@@ -20,6 +20,7 @@ import Logout from "./components/UserManagement/Logout";
 import Settings from "./components/UserManagement/Settings";
 import Catalogue from "./components/Catalogue";
 import AboutContact from "./components/AboutContact";
+import Downloads from "./components/Admin/Downloads";
 
 import jwt_decode from "jwt-decode";
 import setJWTToken from "./securityUtils/setJWTToken";
@@ -86,6 +87,8 @@ export const App = () => {
               <Route exact path="/blackList" component={BlackList} />
               <Route exact path="/inbox" component={Inbox} />
               <Route exact path="/settings" component={Settings} />
+              <Route exact path="/downloads" component={Downloads} />
+              
             </Switch>
           </div>
         </Router>

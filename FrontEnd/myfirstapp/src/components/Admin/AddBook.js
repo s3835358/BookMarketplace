@@ -1,11 +1,11 @@
-import React, {useState, useEffect} from "react";
-import axios from 'axios';
+import React, {useState, useEffect, Component} from "react";
+import axios, { post } from 'axios';
 import store from "../../store";
 import {useUserContext} from '../UserManagement/UserContext';
 
 
 export const AddBook = props => {
-    
+
     const [state,setState] = useState({
         title:"",
         author:"",
@@ -21,7 +21,7 @@ export const AddBook = props => {
     const [logged, setLogged] = useState(false);
     const {user} = useUserContext();
     const [phrase, setPhrase] = useState("Sell");
-    
+
     useEffect (() => {
       if((user === "") && (localStorage.getItem("user") === null)) {
           setLogged(false);
@@ -31,8 +31,31 @@ export const AddBook = props => {
             setPhrase("Add");
           }
       }
-      
+
     }, [user]);
+
+
+// TEST
+class upload extends Component {
+onChange(e)
+{
+let files=e.target.files;
+
+let reader= new FileReader();
+reader.readAsDataURL(files[0]);
+
+reader.onload=(e)=>{
+  const url="https://salty-caverns-05675.herokuapp.com/books/addBook"
+  const formData={file:e.target.result}
+  return post(url,formData)
+  .then(response=>console.warn("result", response))
+}
+
+
+}
+
+}
+// TEST
 
     function handleSubmit() {
 
@@ -44,7 +67,7 @@ export const AddBook = props => {
         } else if (store.getState().security.user.userType.match("user")) {
           userId = String(localStorage.id);
         }
-        
+
         var req = {
           "title": state.title,
           "author": state.author,
@@ -67,20 +90,20 @@ export const AddBook = props => {
             } else {
               alert(state.title + " was not added..");
             }
-            
+
         }).catch(err =>{
             alert("Incorrect values");
         })
-        
+
     };
 
     // Radio button based on positronx.io/react-radio-button-tutorial-with-example/
 
     return (
-        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>          
+        <div style ={{alignItems:"center", display:"flex", flexDirection:"column", justifyContent:"center"}}>
           {
             logged && 'userType' in store.getState().security.user?
-                
+
               <div className ="addBook" style ={{width:"30%"}}>
                   <h1>{phrase} Book</h1>
 
@@ -104,7 +127,7 @@ export const AddBook = props => {
                       onChange={(ev) => setState({...state, author: ev.target.value})}
                     />
                   </div>
-                  
+
                   <div className="form-group">
                     <input
                       type="text"
@@ -151,7 +174,24 @@ export const AddBook = props => {
                     />
                   </div>
 
-                  {store.getState().security.user.userType.match("admin") 
+
+
+
+
+
+                  <div>
+                    <h6>Upload File</h6>
+                    <input type="file" name="file" onChange={(e)=>this.onChange(e)} />
+                    </div>
+
+
+
+
+
+
+
+
+                  {store.getState().security.user.userType.match("admin")
                   || store.getState().security.user.userType.match("publish")?
                     <div/>
                   :
@@ -182,7 +222,7 @@ export const AddBook = props => {
                       <div className="form-control form-control-lg">Condition:
                         {store.getState().security.user.userType.match("shop")?
                           <div style ={{display:"flex", flexDirection:"row", justifyContent:"space-around"}}>
-                            
+
                             <div>
                               <label>
                                 <input
@@ -194,7 +234,7 @@ export const AddBook = props => {
                                 New
                               </label>
                             </div>
-                
+
                             <div>
                               <label>
                                 <input
@@ -218,12 +258,12 @@ export const AddBook = props => {
 
                   <div type="button" onClick={handleSubmit} className="btn btn-info btn-block mt-4">{phrase} Book</div>
               </div>
-              
+
             :
             <div/>
-          }   
+          }
         </div>
     );
-  
+
 }
 export default AddBook;

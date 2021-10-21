@@ -63,6 +63,9 @@ export const Header = () => {
                                         <a className="nav-link" href="/inbox">
                                             Inbox
                                         </a>
+                                        <a className="nav-link" href="/downloads">
+                                            Downloads
+                                        </a>
                                     </li>
                                 </ul>
                                 :
