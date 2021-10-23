@@ -6,6 +6,7 @@ import { useUserContext } from "./UserContext";
 import jwt_decode from "jwt-decode";
 import store from "../../store";
 import {SET_CURRENT_USER} from "../../actions/types";
+import { useRouteMatch } from "react-router-dom";
 import '../Background.css'
 
 export const Login = props => {
@@ -64,11 +65,20 @@ export const Login = props => {
   }
 
   return (
+<>
     <div className="background4" >
       <div className="login">
         <div className="container">
           <div className="row" >
             
+            <div className="form-group">
+              <input
+                type="text"
+                className={classnames("form-control form-control-lg")}
+                placeholder="Email Address"
+                name="username"
+                onChange={usernameChange}
+              />
             <div style={{paddingLeft:"20%",paddingTop:"14%", display:"flex",
             width:"80%", flexDirection:"column", justifyContent:"center",alignItems:"center"}}>
               
@@ -107,7 +117,11 @@ export const Login = props => {
         </div>
       </div>
     </div>
+    </div>
+</>
+ 
   );
   
 }
 export default Login;
+
