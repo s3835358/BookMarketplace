@@ -11,6 +11,7 @@ export const Catalogue = props => {
     const [selected, setSelected] = useState([]);
     const [viewing, setViewing] = useState(false);
     const [sellers, setSellers] = useState([]);
+    const fileExists = require('file-exists');
 
     useEffect(() => {
         axios.get("https://sept-login-service.herokuapp.com/api/users/getSellers").then((response) => {         
@@ -52,6 +53,8 @@ export const Catalogue = props => {
         
         return name;
     }
+
+    
     // Search method based on tutorial https://www.youtube.com/watch?v=mZvKPtH9Fzo
 
     return (
@@ -101,13 +104,14 @@ export const Catalogue = props => {
                                     backgroundColor:"white", flexDirection:"column", 
                                     justifyContent:"left", alignItems:"left",
                                     margin:"10% 50% 0% 50%"}}>   
-
-                                        <div className = "book" key = {book.id} onClick={e=> {bookClicked(book)}}>
                                         
+                                        <div className = "book" key = {book.id} onClick={e=> {bookClicked(book)}}>
+                                            
                                             {book.title} 
                                             
                                         
                                         </div>
+                                        
                                         {book.shop != null || book.user != null?
                                         
                                             <div style={{display:"contents",

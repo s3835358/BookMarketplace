@@ -2,7 +2,7 @@ package com.rmit.sept.bk_loginservices.payload;
 
 import javax.validation.constraints.NotBlank;
 
-public class RequestResponse {
+public class ResetRequest {
     
     @NotBlank(message = "Token cannot be blank")
     private String token;
@@ -17,7 +17,7 @@ public class RequestResponse {
         return id;
     }
 
-    public boolean getPassword() {
+    public String getPassword() {
         return password;
     }
 }

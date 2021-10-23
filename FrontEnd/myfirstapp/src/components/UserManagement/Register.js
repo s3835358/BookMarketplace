@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import { Form, FloatingLabel} from "react-bootstrap";
 import store from "../../store";
 import '../Background.css'
+import axios from "axios";
 
 class Register extends Component {
   constructor() {
@@ -32,11 +33,14 @@ class Register extends Component {
     e.preventDefault();
 
     var type = this.state.userType;
+    var tok = "";
 
     if('userType' in store.getState().security.user) {
-      if(store.getState().security.user.userType.match("admin")) {
+      if(store.getState().security.user.userType.match("admin") && !this.state.edit) {
         type = "admin";
+        
       }
+      tok = localStorage.jwtToken; 
     }
 
     const newUser = {
@@ -49,10 +53,28 @@ class Register extends Component {
       address: this.state.address,
       abn: this.state.abn,
       pending: this.state.pending,
-      busName: this.state.busName
+      busName: this.state.busName,
+      token: tok
     };
 
-    this.props.createNewUser(newUser, this.props.history);
+    console.log(newUser);
+    
+    if(store.getState().security.user.userType.match("admin") && this.state.edit) {
+
+      axios.post(`https://sept-login-service.herokuapp.com/api/users/editUser`,newUser).then(res => {
+
+        console.log(res)
+        alert("Edit Success")
+
+      }).catch(err =>{
+          // Tell user what went wrong with submission
+          alert(err);
+      })
+
+    } else {
+      this.props.createNewUser(newUser, this.props.history);
+    }
+    
   }
 
   onChange(e) {
