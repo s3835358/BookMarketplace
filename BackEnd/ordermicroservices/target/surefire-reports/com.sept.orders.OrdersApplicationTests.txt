@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.sept.orders.OrdersApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 21.759 s - in com.sept.orders.OrdersApplicationTests
