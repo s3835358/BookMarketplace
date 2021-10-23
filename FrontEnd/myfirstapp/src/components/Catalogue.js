@@ -3,8 +3,8 @@ import axios from 'axios';
 import Book from './Book'
 import "./Catalogue.css"
 import './Background.css'
-
 export const Catalogue = props => {
+
 
     const [catalogue, setCatalogue] = useState(["Loading..."]);
     const [query, setQuery] = useState("");
@@ -35,6 +35,17 @@ export const Catalogue = props => {
         
 
     }, [props.match.params.book]);
+
+
+    function changeImage(){
+        var image = document.getElementById("myImage");
+  if (image.src.match("title")) {
+    image.src = "images/covers/cover_1.jpg";
+  } else {
+    image.src = "images/empty.jpg";
+  } 
+    }
+
 
     function bookClicked(book) {
         setSelected(book);

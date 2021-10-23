@@ -12,6 +12,7 @@ export const Book = props => {
     const [cost, setCost] = useState(1);
     const [reviews, setReviews] = useState([]); 
     const [bookReview, setBookReview] = useState(""); 
+    const [file, setFile] = useState("");
 
     useEffect(() => {
         setSelected(props.book)
@@ -26,6 +27,22 @@ export const Book = props => {
         })
 
     }, [props.book, selected]);
+
+    function handleUpload(event) {
+        setFile(event.target.files[0]);
+      }
+    function fileUpload() {
+        var req = {cover: file, id: selected.id}
+        console.log(req);
+
+        axios.post(`https://salty-caverns-05675.herokuapp.com/books/uploadCover`,req).then(res => {
+              console.log(res)
+             
+          }).catch(err =>{
+              alert("Incorrect values");
+          })
+      };
+
 
     function isSuccess(result) {
         console.log(result)
@@ -189,7 +206,16 @@ export const Book = props => {
                             //history={history}
                             isSuccess={isSuccess}>
                         </PayPal>
+                        <p> </p>
+                        <input type="file" onChange={handleUpload} />
+                        <p>Filename: {file.name}</p>
+                        <p>File type: {file.type}</p>
+                        <p>File size: {file.size} bytes</p>
 
+                    <div type="submit" onClick={fileUpload} className="btn btn-info btn-block mt-4" 
+                    style={{backgroundColor:"black", borderColor:"black",color:"white"}}>
+                      Submit
+                     </div> 
                     </div>
                     <p/>
                 </div>

@@ -29,6 +29,14 @@ export default function ForgotPassword() {
     setLoading(false);
   }
 
+ 
+  const requestPassword = function(){
+    axios.post(`https://sept-login-service.herokuapp.com/api/users/resetPassword`,req).then(res => {
+
+          });
+
+  }
+  
   return (
     <>
       <div className="forgot-password-background"></div>

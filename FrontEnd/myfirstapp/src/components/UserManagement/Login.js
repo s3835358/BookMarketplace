@@ -6,11 +6,8 @@ import { useUserContext } from "./UserContext";
 import jwt_decode from "jwt-decode";
 import store from "../../store";
 import {SET_CURRENT_USER} from "../../actions/types";
-<<<<<<< HEAD
 import { useRouteMatch } from "react-router-dom";
-=======
 import '../Background.css'
->>>>>>> 71dbad97545c6e436b5bf0ce74647692773854bf
 
 export const Login = props => {
   
@@ -68,6 +65,7 @@ export const Login = props => {
   }
 
   return (
+<>
     <div className="background4" >
       <div className="login">
         <div className="container">
@@ -119,6 +117,9 @@ export const Login = props => {
         </div>
       </div>
     </div>
+    </div>
+</>
+ 
   );
   
 }
