@@ -7,11 +7,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
-
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import com.bookeroo.app.models.Book;
+import com.bookeroo.app.models.Review;
 import com.bookeroo.app.daos.BooksDao;
+import com.bookeroo.app.services.ImageUploadService;
+
+import java.io.IOException;
 
 import java.util.List;
 
@@ -45,7 +50,18 @@ public class BooksController {
 	 */
 	@PostMapping(value = "/addBook", consumes ="application/json", produces = "application/json")
 	public Book addBook(@RequestBody Book book) {
+		
 		return booksDao.saveBook(book);
+	}
+
+	/*
+	 *	Based on https://www.baeldung.com/spring-resttemplate-post-json
+	 * 
+	 */
+	@PostMapping(value = "/editBook", consumes ="application/json", produces = "application/json")
+	public Book editBook(@RequestBody Book book) {
+		
+		return booksDao.updateBook(book);
 	}
 
 	/*
@@ -64,7 +80,43 @@ public class BooksController {
 		return booksDao.getBooks();
 	}
 
+	@PostMapping(value = "/bookSold", consumes ="application/json", produces = "application/json")
+	public Book bookSold(@RequestBody Book book) {
+		
+		return booksDao.bookSold(book);
+	}
 
-	//website.com/books/getTitles
+	@PostMapping(value = "/addReview", consumes ="application/json", produces = "application/json")
+	public ResponseEntity<?> addReview(@RequestBody Review review) {
+		
+		ResponseEntity<HttpStatus> responseEntity = ResponseEntity.ok(HttpStatus.BAD_REQUEST);
+
+        if(booksDao.addReview(review)) {
+            responseEntity = ResponseEntity.ok(HttpStatus.ACCEPTED);
+        }
+
+		return responseEntity;
+	}
+
+	@PostMapping(value = "/getReviews", consumes ="application/json", produces = "application/json")
+    public List<Review> getReviews(@RequestBody Book book) {
+        
+        Long id = book.getId();
+
+        return booksDao.getReviews(id);
+    }
+
+	@Autowired
+	ImageUploadService imageUploadService;
+
+	@PostMapping(value = "/uploadCover", consumes = "multipart/form-data", produces = "multipart/form-data")
+	public void uploadCover(@RequestParam("cover") MultipartFile cover, @RequestParam("id") long id) throws IllegalStateException, IOException {
+		imageUploadService.uploadCover(cover, id);
+	}
+
+	@PostMapping(value = "/uploadContents", consumes = "multipart/form-data", produces = "multipart/form-data")
+	public void uploadContents(@RequestParam("contents") MultipartFile contents, @RequestParam("id") long id) throws IllegalStateException, IOException {
+		imageUploadService.uploadContents(contents, id);
+	}
 	
 }
