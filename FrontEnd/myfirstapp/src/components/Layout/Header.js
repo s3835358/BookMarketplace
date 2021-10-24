@@ -17,7 +17,7 @@ export const Header = () => {
 
     return (
         <div>
-            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black" }}>
+            <nav className="navbar navbar-expand-sm navbar-dark mb-4" style={{ backgroundColor: "black", fontSize:"13pt" }}>
                 <div className="container">
                     <a className="navbar-brand" href="/">
                         BOOKEROO
@@ -30,7 +30,7 @@ export const Header = () => {
                         
                         <ul className="navbar-nav mr-auto">
                             <li className="nav-item">
-                                <a className="nav-link" href="/catalogue">
+                                <a className="nav-link" href="/catalogue/:book">
                                     Catalogue
                                 </a>
                             </li>
@@ -44,17 +44,44 @@ export const Header = () => {
                         </ul>
                         {
                             logged && 'userType' in store.getState().security.user?
-                            store.getState().security.user.userType.match("admin")?
+                                store.getState().security.user.userType.match("admin")?
 
-                                <ul className="navbar-nav mr-auto">
-                                    <li className="nav-item">
-                                        <a className="nav-link" href="/admin">
-                                            Admin
+                                <ul className="navbar-nav mr-auto" >
+                                    <li className="nav-item" style={{display:"flex", flexDirection:"row"}}>
+                                        <a className="nav-link" href="/addBook">
+                                            Add Book
+                                        </a>
+                                        <a className="nav-link" href="/editBook">
+                                            Edit Book
+                                        </a>
+                                        <a className="nav-link" href="/userList">
+                                            User List
+                                        </a>
+                                        <a className="nav-link" href="/blackList">
+                                            BlackList
+                                        </a>
+                                        <a className="nav-link" href="/inbox">
+                                            Inbox
+                                        </a>
+                                        <a className="nav-link" href="/downloads">
+                                            Downloads
                                         </a>
                                     </li>
                                 </ul>
                                 :
-                                <div></div>
+                                <div>
+                                    {store.getState().security.user.userType.match("shop")?
+                                        <ul className="navbar-nav mr-auto" >
+                                            <li className="nav-item" style={{display:"flex", flexDirection:"row"}}>
+                                                <a className="nav-link" href="/addBook">
+                                                    Sell Books
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    :
+                                        <div/>
+                                    }
+                                </div>
                             :
                             <div></div>
                         }
@@ -63,6 +90,21 @@ export const Header = () => {
                         <ul className="navbar-nav ml-auto" >
                             {logged?
                                 <div style = {{display:"flex", flexDirection:"row"}}>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/transactionHistory">
+                                            Transaction History
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/currentOrders">
+                                            Current Orders
+                                        </a>
+                                    </li>
+                                    <li className="nav-item">
+                                        <a className="nav-link" href="/settings">
+                                            Settings
+                                        </a>
+                                    </li>
                                     <li className="nav-item">
                                         <a className="nav-link" href="/logout">
                                             Log Out
@@ -74,12 +116,12 @@ export const Header = () => {
                                 
                                 <div style = {{display:"flex", flexDirection:"row", color:"white"}}>
                                     <li className="nav-item">
-                                        <a className="nav-link " href="register">
+                                        <a className="nav-link " href="/register">
                                             Sign Up
                                         </a>
                                     </li>
                                     <li className="nav-item">
-                                        <a className="nav-link" href="login">
+                                        <a className="nav-link" href="/login">
                                             Login
                                         </a>
                                     </li>   

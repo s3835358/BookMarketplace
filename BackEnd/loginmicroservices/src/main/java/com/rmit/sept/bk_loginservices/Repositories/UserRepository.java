@@ -1,10 +1,13 @@
 package com.rmit.sept.bk_loginservices.Repositories;
 
+import com.rmit.sept.bk_loginservices.model.Seller;
 import com.rmit.sept.bk_loginservices.model.User;
+import com.rmit.sept.bk_loginservices.mapper.SellerMapper;
 import com.rmit.sept.bk_loginservices.mapper.UserMapper;
 import org.springframework.stereotype.Repository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import java.util.List;
 
 @Repository
@@ -17,10 +20,10 @@ public class UserRepository {
 
         
         String query = "INSERT INTO `users`(`fullName`, `username`, `password`, `userType`, `address`,";
-        query += "`phone`, `pending`, `abn`) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
+        query += "`phone`, `pending`, `abn`, `busName`) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?);";
 
         jdbcTemplate.update(query, user.getFullName(), user.getUsername(), user.getPassword(), user.getUserType(),
-        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn());
+        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn(), user.getBusName());
 
         return findByUsername(user.getUsername());
     }
@@ -44,6 +47,87 @@ public class UserRepository {
 
     public User getById(Long id) {
         return null;
+    }
+
+    public List<User> shopRequests() {
+
+        String query = "SELECT * FROM `users` WHERE `pending` = 'true';";
+
+        return jdbcTemplate.query(query, new UserMapper());
+    }
+
+    public List<User> getUsers() {
+
+        String query = "SELECT * FROM `users` WHERE `pending` != 'block';";
+
+        return jdbcTemplate.query(query, new UserMapper());
+    }
+
+    public List<User> getBlacklist() {
+
+        String query = "SELECT * FROM `users` WHERE `pending` = 'block';";
+
+        return jdbcTemplate.query(query, new UserMapper());
+    }
+
+    public int approveRejectShop(long id, boolean accept) {
+        String type = "user";
+
+        if(accept) {
+            type = "shop";
+        }
+
+        String query = "UPDATE `users` SET `pending` = 'false', `userType` = ? where `id` = ?;";
+
+        return jdbcTemplate.update(query, type, id);
+    }
+
+    public int editUser(User user) {
+
+        String query = "UPDATE `users` SET `fullName` = ?, `username` = ?, `password` = ?, `userType` = ?,";
+        query += " `address` = ?,`phone` = ? , `pending` = ?, `abn` = ?, `busName` = ? WHERE `id` = ?;";
+
+        return jdbcTemplate.update(query, user.getFullName(), user.getUsername(), user.getPassword(), user.getUserType(),
+        user.getAddress(), user.getPhone(), user.getPending(), user.getAbn(), user.getBusName(), user.getId());
+    }
+
+    public int blockUser(long id) {
+
+        String query = "UPDATE `users` SET `pending` = 'block' where `id` = ?;";
+
+        return jdbcTemplate.update(query, id);
+    }
+
+    public int requestShop(long id, String abn, String busName) {
+        
+        String query = "UPDATE `users` SET `pending` = 'true', `abn` = ?, `busName` = ? where `id` = ?;";
+
+        return jdbcTemplate.update(query, abn, busName, id);
+    }
+
+    public List<Seller> getSellers() {
+
+        String query = "SELECT `id`, `fullName` FROM `users`;";
+
+        List<Seller> sellers = jdbcTemplate.query(query, new SellerMapper());
+        
+        return sellers;
+    }
+
+    public List<User> getAll() {
+
+        String query = "SELECT * FROM `users`;";
+
+        List<User> users = jdbcTemplate.query(query, new UserMapper());
+        
+        return users;
+    }
+
+    public int resetPassword(long id, String password) {
+
+        String query = "UPDATE `users` SET `password` = ? WHERE `id` = ?;";
+
+        return jdbcTemplate.update(query, password, id);
     }
 
 }
